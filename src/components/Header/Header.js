@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const Header = () => {
     return (
@@ -12,15 +12,15 @@ const Header = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Link to='/' className='nav-link'>Trang chủ</Link>
-                        <Link to='/user' className='nav-link'>User</Link>
-                        <Link to='/admin' className='nav-link'>Admin</Link>
+                        <NavLink to='/' className='nav-link'>Trang chủ</NavLink>
+                        <NavLink to='/user' className='nav-link'>User</NavLink>
+                        <NavLink to='/admin' className='nav-link'>Admin</NavLink>
                     </Nav>
                     <Nav>
                         <NavDropdown title="Tài khoản" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Thông tin tài khoản</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.1">Đăng nhập</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.1">Đăng xuất</NavDropdown.Item>
+                            <NavDropdown.Item>Thông tin tài khoản</NavDropdown.Item>
+                            <NavDropdown.Item>Đăng nhập</NavDropdown.Item>
+                            <NavDropdown.Item>Đăng xuất</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
