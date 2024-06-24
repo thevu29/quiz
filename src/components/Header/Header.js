@@ -12,15 +12,15 @@ const Header = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <NavLink to='/' className='nav-link'>Trang chủ</NavLink>
+                        <NavLink to='/' className='nav-link'>Home</NavLink>
                         <NavLink to='/user' className='nav-link'>User</NavLink>
                         <NavLink to='/admin' className='nav-link'>Admin</NavLink>
                     </Nav>
                     <Nav>
-                        <NavDropdown title="Tài khoản" id="basic-nav-dropdown">
-                            <NavDropdown.Item>Thông tin tài khoản</NavDropdown.Item>
-                            <NavDropdown.Item>Đăng nhập</NavDropdown.Item>
-                            <NavDropdown.Item>Đăng xuất</NavDropdown.Item>
+                        <NavDropdown title="Settings" id="basic-nav-dropdown">
+                            <NavDropdown.Item>Profile</NavDropdown.Item>
+                            <NavDropdown.Item>Sign In</NavDropdown.Item>
+                            <NavDropdown.Item>Sign Up</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

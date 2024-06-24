@@ -1,3 +1,6 @@
+$primary-color: #191919;
+$active-color: #3e3edb;
+
 body {
   padding: 0;
   margin: 0;
@@ -10,17 +13,64 @@ body {
 
 .app-container {
   .header-container {
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+    color: $primary-color;
+    background-color: #ffffffe6;
+    backdrop-filter: saturate(180%) blur(20px);
+    transition: height 600ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s, box-shadow 600ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+
     .navbar-nav {
       .nav-link {
+        color: $primary-color;
+
         &.active {
-          color: #7020d7;
+          color: $active-color;
+          font-weight: 600;
         }
       }
     }
 
     .navbar-brand {
-      color: #4949ff;
+      color: $primary-color;
       font-weight: 600;
+      font-size: 32px;
+    }
+  }
+
+  .homepage-container {
+    padding: 40px 0;
+
+    .homepage-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      text-align: left;
+
+      h1 {
+        font-size: 60px;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+
+      p {
+        margin-top: 32px;
+        font-size: 20px;
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        text-wrap: balance;
+      }
+
+      .btn {
+        margin-top: 40px;
+        padding: 12px 24px;
+        border-radius: 12px;
+        background-color: $primary-color;
+        border: 1px solid $primary-color;
+      }
     }
   }
 }
