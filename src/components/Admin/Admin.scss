@@ -1,0 +1,80 @@
+@import "~react-pro-sidebar/dist/scss/styles.scss";
+
+.admin-container {
+  display: flex;
+
+  .sidebar-container {
+    height: 100vh;
+
+    .pro-sidebar {
+      width: 250px;
+      min-width: 250px;
+
+      .sidebar-header {
+        display: flex;
+        align-items: center;
+        color: #0098e5;
+
+        .sidebar-header-logo {
+          width: 35px;
+          min-width: 35px;
+          height: 35px;
+          min-height: 35px;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          justify-content: center;
+          border-radius: 8px;
+          color: white;
+          font-size: 24px;
+          font-weight: 700;
+          background: linear-gradient(
+            45deg,
+            rgb(21, 87, 205) 0%,
+            rgb(90, 225, 255) 100%
+          );
+          margin-right: 16px;
+          margin-left: 4px;
+        }
+      }
+
+      .sidebar-btn-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        .sidebar-btn {
+          transition: width 0.3s;
+          width: 150px;
+          padding: 1px 15px;
+          border-radius: 40px;
+          background: rgba(255, 255, 255, 0.05);
+          color: #adadad;
+          text-decoration: none;
+          margin: 0 auto;
+          height: 35px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-overflow: ellipsis;
+          overflow: hidden;
+
+          span {
+            margin-left: 5px;
+            font-size: 13px;
+          }
+
+          &:hover {
+            color: $highlight-color;
+          }
+        }
+      }
+    }
+
+    .pro-sidebar.collapsed {
+      width: 70px;
+      min-width: 70px;
+    }
+  }
+}

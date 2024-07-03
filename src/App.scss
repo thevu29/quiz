@@ -28,7 +28,7 @@ $active-color: #3e3edb;
 body {
   padding: 0;
   margin: 0;
-  font-family: "Apercu Pro", "Helvetica Neue", sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -63,6 +63,7 @@ body {
   }
 
   .homepage-container {
+    font-family: "Apercu Pro", "Helvetica Neue", sans-serif;
     padding: 40px 0;
 
     .homepage-content {
