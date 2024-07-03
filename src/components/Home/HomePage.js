@@ -22,7 +22,7 @@ const HomePage = () => {
                                     <strong> refreshingly different.</strong>
                                 </span>
                             </p>
-                            <Link to='' className='btn btn-dark'>Get started—it's free</Link>
+                            <Link to='' className='btn btn-dark btn-signup'>Get started—it's free</Link>
                         </div>
                     </Col>
                 </Row>
