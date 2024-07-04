@@ -9,15 +9,14 @@ import {
 } from 'react-pro-sidebar'
 import { FaGem, FaGithub } from 'react-icons/fa'
 import { MdDashboard } from 'react-icons/md'
-import sidebarBg from '../../assets/images/sidebar-bg.jpg'
+import { Link } from 'react-router-dom'
 
 const SideBar = (props) => {
     const { collapsed, toggled, handleToggleSidebar } = props
 
     return (
-        <div className="sidebar-container">
+        <div className="admin-sidebar">
             <ProSidebar
-                image={sidebarBg}
                 collapsed={collapsed}
                 toggled={toggled}
                 breakPoint="md"
@@ -44,22 +43,26 @@ const SideBar = (props) => {
                 </SidebarHeader>
 
                 <SidebarContent>
-                    <Menu iconShape="circle">
+                    <Menu>
                         <MenuItem
                             icon={<MdDashboard />}
                         >
                             Dashboard
+                            <Link to="/admin" />
                         </MenuItem>
-                    </Menu>
-                    <Menu iconShape="circle">
                         <SubMenu
                             icon={<FaGem />}
                             title={"Features"}
                         >
-                            <MenuItem>Manage User</MenuItem>
+                            <MenuItem>
+                                Manage User
+                                <Link to="/admin/manage-user" />
+                            </MenuItem>
                             <MenuItem>Manage Quiz</MenuItem>
                             <MenuItem>Manage Question</MenuItem>
                         </SubMenu>
+                    </Menu>
+                    <Menu>
                     </Menu>
                 </SidebarContent>
 
