@@ -141,6 +141,7 @@ $sidebar-bg-color: #181a20;
     .admin-content {
         background-color: #f7f7f7;
         width: 100%;
+        overflow: hidden;
 
         .content-header {
             padding: 4px 24px;
@@ -159,7 +160,10 @@ $sidebar-bg-color: #181a20;
         }
 
         .content-main {
-            padding: 16px 24px;
+            margin: 8px 12px;
+            padding: 10px 12px;
+            background-color: #fff;
+            height: 100%;
         }
     }
 }
