@@ -76,8 +76,8 @@ const ManageUser = (props) => {
                 <ModalViewUser 
                     show={showModalViewUser}
                     setShow={setShowModalViewUser}
-                    userUpdate={userUpdate}
-                    setUserUpdate={setUserUpdate}
+                    userView={userUpdate}
+                    setUserView={setUserUpdate}
                 />
             </div>
         </div>

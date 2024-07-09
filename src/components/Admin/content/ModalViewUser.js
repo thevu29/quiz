@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal'
 import defaultImage from '../../../assets/images/default_image.jpg'
 
 const ModalViewUser = (props) => {
-    const { show, setShow, userUpdate, setUserUpdate } = props
+    const { show, setShow, userView, setUserView } = props
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('........')
@@ -19,19 +19,19 @@ const ModalViewUser = (props) => {
         setRole('USER')
         setPreviewImage(null)
         setShow(false)
-        setUserUpdate({})
+        setUserView({})
     }
 
     useEffect(() => {
-        if (!_.isEmpty(userUpdate)) {
-            setEmail(userUpdate.email)
-            setUsername(userUpdate.username)
-            setRole(userUpdate.role)
-            userUpdate.image
-                ? setPreviewImage(`data:image/jpeg;base64,${userUpdate.image}`)
+        if (!_.isEmpty(userView)) {
+            setEmail(userView.email)
+            setUsername(userView.username)
+            setRole(userView.role)
+            userView.image
+                ? setPreviewImage(`data:image/jpeg;base64,${userView.image}`)
                 : setPreviewImage(defaultImage)
         }
-    }, [userUpdate])
+    }, [userView])
 
     return (
         <>
