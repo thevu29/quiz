@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { getALlUsers } from '../../../services/userApiService'
 import UserTable from './UserTable'
 import ModalUpdateUser from './ModalUpdateUser'
+import ModalViewUser from './ModalViewUser'
 
 const ManageUser = (props) => {
     const [userList, setUserList] = useState([])
@@ -13,6 +14,7 @@ const ManageUser = (props) => {
 
     const [showModalAddUser, setShowModalAddUser] = useState(false)
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false)
+    const [showModalViewUser, setShowModalViewUser] = useState(false)
 
     const fetchAllUsers = async () => {
         const res = await getALlUsers()
@@ -27,6 +29,11 @@ const ManageUser = (props) => {
 
     const handleShowModalUpdateUser = (user) => {
         setShowModalUpdateUser(true)
+        setUserUpdate(user)
+    }
+
+    const handleShowModalViewUser = (user) => {
+        setShowModalViewUser(true)
         setUserUpdate(user)
     }
 
@@ -48,6 +55,7 @@ const ManageUser = (props) => {
                     <UserTable 
                         userList={userList}
                         handleShowModalUpdateUser={handleShowModalUpdateUser}
+                        handleShowModalViewUser={handleShowModalViewUser}
                     />
                 </div>
 
@@ -61,6 +69,13 @@ const ManageUser = (props) => {
                     show={showModalUpdateUser}
                     setShow={setShowModalUpdateUser}
                     fetchAllUsers={fetchAllUsers}
+                    userUpdate={userUpdate}
+                    setUserUpdate={setUserUpdate}
+                />
+
+                <ModalViewUser 
+                    show={showModalViewUser}
+                    setShow={setShowModalViewUser}
                     userUpdate={userUpdate}
                     setUserUpdate={setUserUpdate}
                 />

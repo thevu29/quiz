@@ -1,7 +1,7 @@
 import { FaCircleInfo, FaTrash, FaPenToSquare } from 'react-icons/fa6'
 
 const UserTable = (props) => {
-    const { userList, handleShowModalUpdateUser } = props
+    const { userList, handleShowModalUpdateUser, handleShowModalViewUser } = props
 
     return (
         <>
@@ -29,6 +29,7 @@ const UserTable = (props) => {
                                     <td>
                                         <span
                                             className="me-2"
+                                            onClick={() => handleShowModalViewUser(user)}
                                         >
                                             <FaCircleInfo color="#0d6efd" cursor="pointer" fontSize="20px" title="View" />
                                         </span>
