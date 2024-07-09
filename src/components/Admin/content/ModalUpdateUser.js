@@ -1,15 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import _ from 'lodash'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { toast } from 'react-toastify'
 import { validateEmail } from '../../../validation/Validate'
 import { postAddUser } from '../../../services/userApiService'
+import defaultImage from '../../../assets/images/default_image.jpg'
 
-const ModalAddUser = (props) => {
-    const { show, setShow, fetchAllUsers } = props
+const ModalUpdateUser = (props) => {
+    const { show, setShow, fetchAllUsers, userUpdate } = props
 
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [password, setPassword] = useState('........')
     const [username, setUsername] = useState('')
     const [role, setRole] = useState('USER')
     const [userImage, setUserImage] = useState('')
@@ -17,13 +19,25 @@ const ModalAddUser = (props) => {
 
     const handleCloseModal = () => {
         setEmail('')
-        setPassword('')
+        setPassword('........')
         setUsername('')
         setRole('USER')
         setUserImage('')
         setPreviewImage(null)
         setShow(false)
     }
+
+    useEffect(() => {
+        console.log(userUpdate)
+        if (!_.isEmpty(userUpdate)) {
+            setEmail(userUpdate.email)
+            setUsername(userUpdate.username)
+            setRole(userUpdate.role)
+            userUpdate.image
+                ? setPreviewImage(`data:image/jpeg;base64,${userUpdate.image}`)
+                : setPreviewImage(defaultImage)
+        }
+    }, [userUpdate])
 
     const handleUploadImage = e => {
         if (e.target && e.target.files && e.target.files[0]) {
@@ -71,7 +85,7 @@ const ModalAddUser = (props) => {
                 className="add-user-modal"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Add new user</Modal.Title>
+                    <Modal.Title>Update user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -82,6 +96,7 @@ const ModalAddUser = (props) => {
                                     <input
                                         type="email"
                                         className="form-control"
+                                        disabled
                                         value={email}
                                         onChange={e => setEmail(e.target.value)}
                                     />
@@ -93,6 +108,7 @@ const ModalAddUser = (props) => {
                                     <input
                                         type="password"
                                         className="form-control"
+                                        disabled
                                         value={password}
                                         onChange={e => setPassword(e.target.value)}
                                     />
@@ -115,6 +131,7 @@ const ModalAddUser = (props) => {
                                     <select
                                         className="form-select"
                                         value={role}
+                                        disabled
                                         onChange={e => setRole(e.target.value)}
                                     >
                                         <option value="USER">User</option>
@@ -149,7 +166,7 @@ const ModalAddUser = (props) => {
                         Cancel
                     </Button>
                     <Button variant="primary" onClick={handleAddUser}>
-                        Add
+                        Save
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -157,4 +174,4 @@ const ModalAddUser = (props) => {
     )
 }
 
-export default ModalAddUser
+export default ModalUpdateUser

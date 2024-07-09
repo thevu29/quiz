@@ -1,28 +1,15 @@
-import { useEffect, useState } from 'react'
-import { getALlUsers } from '../../../services/userApiService'
 import { FaCircleInfo, FaTrash, FaPenToSquare } from 'react-icons/fa6'
 
 const UserTable = (props) => {
-    const [listUser, setListUser] = useState([])
-
-    const fetchAllUsers = async () => {
-        const res = await getALlUsers()
-        if (res && res.EC === 0) {
-            setListUser(res.DT)
-        }
-    }
-
-    useEffect(() => {
-        fetchAllUsers()
-    }, [])
+    const { userList, handleShowModalUpdateUser } = props
 
     return (
         <>
-            <table className="table table-striped table-hover table-responsive">
-                <caption>List of users</caption>
+            <table className="table table-hover table-bordered table-responsive text-center">
                 <thead>
-                    <tr>
-                        <th scope="col">No</th>
+                    <tr className="table-secondary">
+                        <th scope="col"><input type='checkbox' className="form-check-input" /></th>
+                        <th scope="col">ID</th>
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
                         <th scope="col">Role</th>
@@ -30,22 +17,30 @@ const UserTable = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {listUser && listUser.length > 0 &&
-                        listUser.map((user, index) => {
+                    {userList && userList.length > 0 &&
+                        userList.map((user, index) => {
                             return (
                                 <tr key={`table-user-${index}`}>
-                                    <th scope="row">{index + 1}</th>
+                                    <td><input type='checkbox' className="form-check-input" /></td>
+                                    <td>{user.id}</td>
                                     <td>{user.username}</td>
                                     <td>{user.email}</td>
                                     <td>{user.role}</td>
                                     <td>
-                                        <span className="me-2">
+                                        <span
+                                            className="me-2"
+                                        >
                                             <FaCircleInfo color='#0d6efd' cursor='pointer' fontSize='20px' />
                                         </span>
-                                        <span className="mx-2">
+                                        <span
+                                            className="mx-2"
+                                            onClick={() => handleShowModalUpdateUser(user)}
+                                        >
                                             <FaPenToSquare color='#ffc107' cursor='pointer' fontSize='20px' />
                                         </span>
-                                        <span className="ms-2">
+                                        <span
+                                            className="ms-2"
+                                        >
                                             <FaTrash color='#dc3545' cursor='pointer' fontSize='18px' />
                                         </span>
                                     </td>
@@ -53,7 +48,7 @@ const UserTable = (props) => {
                             )
                         })
                     }
-                    {listUser && listUser.length === 0 && <tr className="text-center fs-3"><td colSpan="4">No data</td></tr>}
+                    {userList && userList.length === 0 && <tr className="text-center fs-3"><td colSpan="4">No data</td></tr>}
                 </tbody>
             </table>
         </>
