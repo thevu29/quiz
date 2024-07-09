@@ -3,12 +3,11 @@ import _ from 'lodash'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { toast } from 'react-toastify'
-import { validateEmail } from '../../../validation/Validate'
-import { postAddUser } from '../../../services/userApiService'
+import { putUpdateUser } from '../../../services/userApiService'
 import defaultImage from '../../../assets/images/default_image.jpg'
 
 const ModalUpdateUser = (props) => {
-    const { show, setShow, fetchAllUsers, userUpdate } = props
+    const { show, setShow, fetchAllUsers, userUpdate, setUserUpdate } = props
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('........')
@@ -25,10 +24,10 @@ const ModalUpdateUser = (props) => {
         setUserImage('')
         setPreviewImage(null)
         setShow(false)
+        setUserUpdate({})
     }
 
     useEffect(() => {
-        console.log(userUpdate)
         if (!_.isEmpty(userUpdate)) {
             setEmail(userUpdate.email)
             setUsername(userUpdate.username)
@@ -53,21 +52,11 @@ const ModalUpdateUser = (props) => {
         }
     }
 
-    const handleAddUser = async () => {
-        if (!validateEmail(email)) {
-            toast.error('Invalid email')
-            return
-        }
-
-        if (!password) {
-            toast.error('Password is required')
-            return
-        }
-
-        const res = await postAddUser(email, password, username, role, userImage)
+    const handleUpdateUser = async () => {
+        const res = await putUpdateUser(userUpdate.id, username, role, userImage)
 
         if (res && res.EC === 0) {
-            toast.success('Add user successfully')
+            toast.success('Update user successfully')
             handleCloseModal()
             await fetchAllUsers()
         } else {
@@ -131,7 +120,6 @@ const ModalUpdateUser = (props) => {
                                     <select
                                         className="form-select"
                                         value={role}
-                                        disabled
                                         onChange={e => setRole(e.target.value)}
                                     >
                                         <option value="USER">User</option>
@@ -165,7 +153,7 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleCloseModal}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={handleAddUser}>
+                    <Button variant="primary" onClick={handleUpdateUser}>
                         Save
                     </Button>
                 </Modal.Footer>
