@@ -3,6 +3,7 @@ import ModalAddUser from './ModalAddUser'
 import { CiSearch } from 'react-icons/ci'
 import { GoPlus } from 'react-icons/go'
 import { useState } from 'react'
+import UserTable from './UserTable'
 
 const ManageUser = (props) => {
     const [showModalAddUser, setShowModalAddUser] = useState(false)
@@ -22,11 +23,11 @@ const ManageUser = (props) => {
                     </button>
                 </div>
                 <div className="user-table__container">
-                    User Table
+                    <UserTable />
                 </div>
 
                 <ModalAddUser
-                    show={showModalAddUser} 
+                    show={showModalAddUser}
                     setShow={setShowModalAddUser}
                 />
             </div>
