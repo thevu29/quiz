@@ -6,7 +6,7 @@ import { validateEmail } from '../../../validation/Validate'
 import { postAddUser } from '../../../services/userApiService'
 
 const ModalAddUser = (props) => {
-    const { show, setShow, fetchAllUsers } = props
+    const { show, setShow, fetchUserList } = props
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -55,7 +55,7 @@ const ModalAddUser = (props) => {
         if (res && res.EC === 0) {
             toast.success('Add user successfully')
             handleCloseModal()
-            await fetchAllUsers()
+            await fetchUserList()
         } else {
             toast.error(res.EM)
         }

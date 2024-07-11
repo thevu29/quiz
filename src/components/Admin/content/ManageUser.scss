@@ -1,10 +1,12 @@
 .manage-user-container {
     .manage-user-content {
-        .manage-user-action__container {
+        .manage-user-filter__container {
+            border-radius: 6px;
             margin: 16px 0;
-            padding: 12px 0;
+            padding: 20px;
             display: flex;
             align-items: center;
+            background-color: #fff;
 
             .search-user__container {
                 margin-right: 12px;
@@ -15,7 +17,7 @@
                     display: block;
                     width: 100%;
                     padding: 0.525rem 0.9rem 0.525rem 40px;
-                    font-size: 0.8125rem;
+                    font-size: 14px;
                     font-weight: 400;
                     line-height: 1.5;
                     color: #0f1114;
@@ -33,7 +35,6 @@
                         background-color: #fff;
                         border-color: #afc0f7;
                         outline: 0;
-                        box-shadow: 0 0 1 0.25rem rgba(#3762ea, 0.25);
                     }
                 }
 
@@ -49,22 +50,81 @@
                 }
             }
 
-            .btn-add-user {
-                display: flex;
-                align-items: center;
-                font-size: 14px;
+            .filter-role__container {
+                flex: 0 0 auto;
+                width: 25%;
 
-                svg {
-                    margin-right: 4px;
-                    font-size: 1.2rem;
+                .form-control {
+                    padding: 0.525rem 0.75rem;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 1.5;
+                    color: #0f1114;
+
+                    &:focus {
+                        color: #0f1114;
+                        background-color: #fff;
+                        border-color: #afc0f7;
+                        outline: 0;
+                        box-shadow: unset;
+                    }
+                }
+            }
+
+            .filter-button__container {
+                margin-left: 12px;
+
+                button {
+                    min-width: 110px;
+                    font-size: 14px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 0.25rem;
+                    gap: 6px;
+                    padding: 0.525rem 0.9rem;
+
+                    &:hover {
+                        color: #fff;
+                        background-color: #212529;
+                    }
                 }
             }
         }
 
         .user-table__container {
-            table {
-                thead {
-                    border-color: #212529;
+            font-size: 14px;
+            padding: 20px;
+            background-color: #fff;
+
+            .table {
+                tr,
+                td {
+                    padding: 0.75rem 0.6rem;
+                }
+            }
+
+            .pagination {
+                gap: 0.5rem;
+
+                .page-item {
+                    .page-link {
+                        font-size: 14px;
+
+                        &:focus {
+                            outline: 0;
+                            box-shadow: unset;
+                        }
+                    }
+
+                    .page-link[rel="next"],
+                    .page-link[rel="prev"] {
+                        &:focus {
+                            outline: 0;
+                            background-color: #fff;
+                            box-shadow: unset;
+                        }
+                    }
                 }
             }
         }

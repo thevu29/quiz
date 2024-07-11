@@ -1,5 +1,13 @@
 import axios from '../utils/axiosCustom'
 
+const getALlUsers = () => {
+    return axios.get('api/v1/participant/all')
+}
+
+const getPaginateUsers = (page, limit) => {
+    return axios.get(`api/v1/participant?page=${page}&limit=${limit}`)
+}
+
 const postAddUser = (email, password, username, role, userImage) => {
     const data = new FormData()
     data.append('email', email)
@@ -8,10 +16,6 @@ const postAddUser = (email, password, username, role, userImage) => {
     data.append('role', role)
     data.append('userImage', userImage)
     return axios.post('api/v1/participant', data)
-}
-
-const getALlUsers = () => {
-    return axios.get('api/v1/participant/all')
 }
 
 const putUpdateUser = (id, username, role, userImage) => {
@@ -27,4 +31,4 @@ const deleteUser = id => {
     return axios.delete('api/v1/participant', { data: { id } })
 }
 
-export { postAddUser, getALlUsers, putUpdateUser, deleteUser }
+export { getALlUsers, getPaginateUsers, postAddUser, putUpdateUser, deleteUser }

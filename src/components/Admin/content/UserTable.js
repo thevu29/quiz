@@ -1,4 +1,5 @@
 import { FaCircleInfo, FaTrash, FaPenToSquare } from 'react-icons/fa6'
+import ReactPaginate from 'react-paginate'
 
 const UserTable = (props) => {
     const {
@@ -9,14 +10,20 @@ const UserTable = (props) => {
         isCheckAll,
         handleCheckAllUser,
         checkedUser,
-        handleCheckUser
+        handleCheckUser,
+        fetchPaginateUser,
+        pageCount
     } = props
+
+    const handlePageClick = e => {
+        fetchPaginateUser(+e.selected + 1)
+    }
 
     return (
         <>
-            <table className="table table-hover table-bordered table-responsive text-center">
+            <table className="table table-hover table-responsive text-center">
                 <thead>
-                    <tr className="table-secondary">
+                    <tr style={{ backgroundColor: 'rgba(15, 17, 20, .03)' }}>
                         <th scope="col">
                             <input
                                 type="checkbox"
@@ -52,31 +59,53 @@ const UserTable = (props) => {
                                     <td>{user.role}</td>
                                     <td>
                                         <span
-                                            className="me-2"
+                                            className="me-1"
                                             onClick={() => handleShowModalViewUser(user)}
                                         >
-                                            <FaCircleInfo color="#0d6efd" cursor="pointer" fontSize="20px" title="View" />
+                                            <FaCircleInfo color="#0d6efd" cursor="pointer" fontSize="18px" title="View" />
                                         </span>
                                         <span
-                                            className="mx-2"
+                                            className="mx-1"
                                             onClick={() => handleShowModalUpdateUser(user)}
                                         >
-                                            <FaPenToSquare color="#ffc107" cursor="pointer" fontSize="20px" title="Update" />
+                                            <FaPenToSquare color="#ffc107" cursor="pointer" fontSize="18px" title="Update" />
                                         </span>
                                         <span
-                                            className="ms-2"
+                                            className="ms-1"
                                             onClick={() => handleShowModalDeleteUser(user)}
                                         >
-                                            <FaTrash color="#dc3545" cursor="pointer" fontSize="18px" title="Delete" />
+                                            <FaTrash color="#dc3545" cursor="pointer" fontSize="16px" title="Delete" />
                                         </span>
                                     </td>
                                 </tr>
                             )
                         })
                     }
-                    {userList && userList.length === 0 && <tr className="text-center fs-3"><td colSpan="4">No data</td></tr>}
+                    {userList && userList.length === 0 && <tr className="text-center fs-3"><td colSpan="6">No data</td></tr>}
                 </tbody>
             </table>
+            <div className="d-flex justify-content-end">
+                <ReactPaginate
+                    nextLabel="Next"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={3}
+                    marginPagesDisplayed={2}
+                    pageCount={pageCount}
+                    previousLabel="Previous"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+                    breakLabel="..."
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    containerClassName="pagination"
+                    activeClassName="active"
+                    renderOnZeroPageCount={null}
+                />
+            </div>
         </>
     )
 }

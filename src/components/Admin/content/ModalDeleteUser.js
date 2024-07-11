@@ -7,7 +7,7 @@ const ModalDeleteUser = (props) => {
     const {
         show,
         setShow,
-        fetchAllUsers,
+        fetchUserList,
         userDelete,
         setUserDelete,
         checkedUser
@@ -25,7 +25,7 @@ const ModalDeleteUser = (props) => {
             if (res && res.EC === 0) {
                 toast.success('Delete user successfully')
                 handleCloseModal()
-                await fetchAllUsers()
+                await fetchUserList()
             } else {
                 toast.error(res.EM)
             }
@@ -49,7 +49,7 @@ const ModalDeleteUser = (props) => {
             } else {
                 toast.success('Delete all checked user successfully')
                 handleCloseModal()
-                await fetchAllUsers()
+                await fetchUserList()
             }
         }
     }
