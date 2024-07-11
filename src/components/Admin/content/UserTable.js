@@ -1,14 +1,30 @@
 import { FaCircleInfo, FaTrash, FaPenToSquare } from 'react-icons/fa6'
 
 const UserTable = (props) => {
-    const { userList, handleShowModalUpdateUser, handleShowModalViewUser } = props
+    const {
+        userList,
+        handleShowModalUpdateUser,
+        handleShowModalViewUser,
+        handleShowModalDeleteUser,
+        isCheckAll,
+        handleCheckAllUser,
+        checkedUser,
+        handleCheckUser
+    } = props
 
     return (
         <>
             <table className="table table-hover table-bordered table-responsive text-center">
                 <thead>
                     <tr className="table-secondary">
-                        <th scope="col"><input type='checkbox' className="form-check-input" /></th>
+                        <th scope="col">
+                            <input
+                                type="checkbox"
+                                className="form-check-input"
+                                onChange={handleCheckAllUser}
+                                checked={isCheckAll}
+                            />
+                        </th>
                         <th scope="col">ID</th>
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
@@ -21,7 +37,15 @@ const UserTable = (props) => {
                         userList.map((user, index) => {
                             return (
                                 <tr key={`table-user-${index}`}>
-                                    <td><input type="checkbox" className="form-check-input" /></td>
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            className="form-check-input"
+                                            id={user.id}
+                                            onChange={handleCheckUser}
+                                            checked={checkedUser.includes(user.id)}
+                                        />
+                                    </td>
                                     <td>{user.id}</td>
                                     <td>{user.username}</td>
                                     <td>{user.email}</td>
@@ -41,6 +65,7 @@ const UserTable = (props) => {
                                         </span>
                                         <span
                                             className="ms-2"
+                                            onClick={() => handleShowModalDeleteUser(user)}
                                         >
                                             <FaTrash color="#dc3545" cursor="pointer" fontSize="18px" title="Delete" />
                                         </span>

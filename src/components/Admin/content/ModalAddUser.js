@@ -68,7 +68,7 @@ const ModalAddUser = (props) => {
                 onHide={handleCloseModal}
                 size="lg"
                 backdrop="static"
-                className="add-user-modal"
+                className="user-modal"
             >
                 <Modal.Header closeButton>
                     <Modal.Title>Add new user</Modal.Title>

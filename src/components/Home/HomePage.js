@@ -16,7 +16,7 @@ const HomePage = () => {
                     </Col>
                     <Col>
                         <div className='homepage-content'>
-                            <h1>Make forms worth filling out</h1>
+                            <h1>Make forms <br></br> worth filling out</h1>
                             <p>
                                 <span>Get more data—like signups, feedback, and anything else—with forms designed to be
                                     <strong> refreshingly different.</strong>

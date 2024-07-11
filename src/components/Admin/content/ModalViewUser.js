@@ -40,7 +40,7 @@ const ModalViewUser = (props) => {
                 onHide={handleCloseModal}
                 size="lg"
                 backdrop="static"
-                className="add-user-modal"
+                className="user-modal"
             >
                 <Modal.Header closeButton>
                     <Modal.Title>User Information</Modal.Title>

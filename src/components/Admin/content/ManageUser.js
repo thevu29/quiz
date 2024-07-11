@@ -1,20 +1,27 @@
-import './ManageUser.scss'
-import ModalAddUser from './ModalAddUser'
 import { CiSearch } from 'react-icons/ci'
 import { GoPlus } from 'react-icons/go'
+import { HiMinus } from 'react-icons/hi2'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import './ManageUser.scss'
 import { getALlUsers } from '../../../services/userApiService'
+import ModalAddUser from './ModalAddUser'
 import UserTable from './UserTable'
 import ModalUpdateUser from './ModalUpdateUser'
 import ModalViewUser from './ModalViewUser'
+import ModalDeleteUser from './ModalDeleteUser'
 
 const ManageUser = (props) => {
+    const [user, setUser] = useState({})
     const [userList, setUserList] = useState([])
-    const [userUpdate, setUserUpdate] = useState({})
 
     const [showModalAddUser, setShowModalAddUser] = useState(false)
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false)
     const [showModalViewUser, setShowModalViewUser] = useState(false)
+    const [showModalDeleteUser, setShowModalDeleteUser] = useState(false)
+
+    const [isCheckAll, setIsCheckAll] = useState(false)
+    const [checkedUser, setCheckedUser] = useState([])
 
     const fetchAllUsers = async () => {
         const res = await getALlUsers()
@@ -27,15 +34,54 @@ const ManageUser = (props) => {
         fetchAllUsers()
     }, [])
 
-    const handleShowModalUpdateUser = (user) => {
+    const handleShowModalUpdateUser = user => {
         setShowModalUpdateUser(true)
-        setUserUpdate(user)
+        setUser(user)
     }
 
-    const handleShowModalViewUser = (user) => {
+    const handleShowModalViewUser = user => {
         setShowModalViewUser(true)
-        setUserUpdate(user)
+        setUser(user)
     }
+
+    const handleShowModalDeleteUser = user => {
+        setShowModalDeleteUser(true)
+        setUser(user)
+    }
+
+    const handleCheckAllUser = e => {
+        setIsCheckAll(!isCheckAll)
+        setCheckedUser(userList
+            .filter(user => user.id !== 1 && user.id !== 2)
+            .map(user => Number(user.id))
+        )
+        if (isCheckAll) {
+            setCheckedUser([])
+        }
+    }
+
+    const handleCheckUser = e => {
+        const { id, checked } = e.target
+        if (id === '1' || id === '2') {
+            toast.warning('You can not delete this user')
+            return
+        }
+
+        setCheckedUser([...checkedUser, Number(id)])
+        if (!checked) {
+            setCheckedUser(checkedUser.filter(item => item !== Number(id)))
+        }
+    }
+
+    const handleShowModalDeleteCheckedUser = () => {
+        if (!checkedUser || checkedUser.length === 0) {
+            toast.error('Please choose user to delete')
+            return
+        }
+        setShowModalDeleteUser(true)
+    }
+
+    console.log(checkedUser)
 
     return (
         <div className="manage-user-container">
@@ -50,12 +96,21 @@ const ManageUser = (props) => {
                         <GoPlus />
                         Add new user
                     </button>
+                    <button className="btn btn-danger btn-add-user ms-2" onClick={handleShowModalDeleteCheckedUser}>
+                        <HiMinus />
+                        Delete user
+                    </button>
                 </div>
                 <div className="user-table__container">
-                    <UserTable 
+                    <UserTable
                         userList={userList}
                         handleShowModalUpdateUser={handleShowModalUpdateUser}
                         handleShowModalViewUser={handleShowModalViewUser}
+                        handleShowModalDeleteUser={handleShowModalDeleteUser}
+                        isCheckAll={isCheckAll}
+                        checkedUser={checkedUser}
+                        handleCheckAllUser={handleCheckAllUser}
+                        handleCheckUser={handleCheckUser}
                     />
                 </div>
 
@@ -69,15 +124,24 @@ const ManageUser = (props) => {
                     show={showModalUpdateUser}
                     setShow={setShowModalUpdateUser}
                     fetchAllUsers={fetchAllUsers}
-                    userUpdate={userUpdate}
-                    setUserUpdate={setUserUpdate}
+                    userUpdate={user}
+                    setUserUpdate={setUser}
                 />
 
-                <ModalViewUser 
+                <ModalViewUser
                     show={showModalViewUser}
                     setShow={setShowModalViewUser}
-                    userView={userUpdate}
-                    setUserView={setUserUpdate}
+                    userView={user}
+                    setUserView={setUser}
+                />
+
+                <ModalDeleteUser
+                    show={showModalDeleteUser}
+                    setShow={setShowModalDeleteUser}
+                    fetchAllUsers={fetchAllUsers}
+                    userDelete={user}
+                    setUserDelete={setUser}
+                    checkedUser={checkedUser}
                 />
             </div>
         </div>
