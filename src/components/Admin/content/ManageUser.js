@@ -15,6 +15,7 @@ import ModalDeleteUser from './ModalDeleteUser'
 const ManageUser = (props) => {
     const LIMIT_USER = 6
     const [pageCount, setPageCount] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1)
 
     const [user, setUser] = useState({})
     const [userList, setUserList] = useState([])
@@ -142,6 +143,8 @@ const ManageUser = (props) => {
                         handleCheckUser={handleCheckUser}
                         fetchPaginateUser={fetchPaginateUser}
                         pageCount={pageCount}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
                 </div>
 
@@ -149,14 +152,20 @@ const ManageUser = (props) => {
                     show={showModalAddUser}
                     setShow={setShowModalAddUser}
                     fetchUserList={fetchUserList}
+                    fetchPaginateUser={fetchPaginateUser}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
 
                 <ModalUpdateUser
                     show={showModalUpdateUser}
                     setShow={setShowModalUpdateUser}
                     fetchUserList={fetchUserList}
+                    fetchPaginateUser={fetchPaginateUser}
                     userUpdate={user}
                     setUserUpdate={setUser}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
 
                 <ModalViewUser
@@ -170,9 +179,12 @@ const ManageUser = (props) => {
                     show={showModalDeleteUser}
                     setShow={setShowModalDeleteUser}
                     fetchUserList={fetchUserList}
+                    fetchPaginateUser={fetchPaginateUser}
                     userDelete={user}
                     setUserDelete={setUser}
                     checkedUser={checkedUser}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
             </div>
         </div>

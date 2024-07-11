@@ -12,11 +12,14 @@ const UserTable = (props) => {
         checkedUser,
         handleCheckUser,
         fetchPaginateUser,
-        pageCount
+        pageCount,
+        currentPage,
+        setCurrentPage
     } = props
 
     const handlePageClick = e => {
         fetchPaginateUser(+e.selected + 1)
+        setCurrentPage(+e.selected + 1)
     }
 
     return (
@@ -104,6 +107,7 @@ const UserTable = (props) => {
                     containerClassName="pagination"
                     activeClassName="active"
                     renderOnZeroPageCount={null}
+                    forcePage={currentPage - 1}
                 />
             </div>
         </>

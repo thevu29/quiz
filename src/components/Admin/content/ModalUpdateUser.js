@@ -7,7 +7,14 @@ import { putUpdateUser } from '../../../services/userApiService'
 import defaultImage from '../../../assets/images/default_image.jpg'
 
 const ModalUpdateUser = (props) => {
-    const { show, setShow, fetchUserList, userUpdate, setUserUpdate } = props
+    const {
+        show,
+        setShow,
+        fetchPaginateUser,
+        currentPage,
+        userUpdate,
+        setUserUpdate
+    } = props
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('........')
@@ -58,7 +65,7 @@ const ModalUpdateUser = (props) => {
         if (res && res.EC === 0) {
             toast.success('Update user successfully')
             handleCloseModal()
-            await fetchUserList()
+            await fetchPaginateUser(currentPage)
         } else {
             toast.error(res.EM)
         }
