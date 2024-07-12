@@ -10,6 +10,7 @@ import HomePage from './components/Home/HomePage'
 import ManageUser from './components/Admin/content/ManageUser'
 import Dashboard from './components/Admin/content/Dashboard'
 import Login from './components/Auth/Login'
+import Signup from './components/Auth/Signup'
 
 const Layout = () => {
     return (
@@ -28,6 +29,7 @@ const Layout = () => {
                 </Route>
 
                 <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
             </Routes>
 
             <ToastContainer

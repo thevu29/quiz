@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { toast } from 'react-toastify'
-import { validateEmail } from '../../../validation/Validate'
+import { isValidEmail } from '../../../validation/Validate'
 import { postAddUser } from '../../../services/userApiService'
 
 const ModalAddUser = (props) => {
@@ -40,7 +40,7 @@ const ModalAddUser = (props) => {
     }
 
     const handleAddUser = async () => {
-        if (!validateEmail(email)) {
+        if (!isValidEmail(email)) {
             toast.error('Invalid email')
             return
         }

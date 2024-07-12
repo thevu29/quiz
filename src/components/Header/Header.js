@@ -7,9 +7,9 @@ import './Header.scss'
 const Header = () => {
     const navigate = useNavigate()
 
-    const handleLogin = () => {
-        navigate('/login')
-    }
+    const handleLogin = () => navigate('/login')
+
+    const handleSignup = () => navigate('/signup')
 
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
@@ -24,7 +24,7 @@ const Header = () => {
                     </Nav>
                     <Nav>
                         <button className="btn-login me-2" onClick={() => handleLogin()}>Log in</button>
-                        <button className="btn btn-dark">Sign up</button>
+                        <button className="btn btn-dark" onClick={() => handleSignup()}>Sign up</button>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
