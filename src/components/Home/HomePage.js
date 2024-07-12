@@ -27,9 +27,6 @@ const HomePage = () => {
                     </Col>
                 </Row>
             </Container>
-            <div style={{height: '500px'}}>
-
-            </div>
         </div>
     )
 }

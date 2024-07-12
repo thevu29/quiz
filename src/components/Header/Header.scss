@@ -1,0 +1,27 @@
+.header-container {
+    .btn-login {
+        display: inline-block;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.5;
+        color: #191919;
+        text-align: center;
+        text-decoration: none;
+        vertical-align: middle;
+        border: none;
+        cursor: pointer;
+        -webkit-user-select: none;
+        user-select: none;
+        background-color: transparent;
+        transition:
+            color 0.15s ease-in-out,
+            background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out,
+            box-shadow 0.15s ease-in-out;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+}
