@@ -1,11 +1,15 @@
 import SideBar from './Sidebar'
 import './Admin.scss'
 import { FaBars } from 'react-icons/fa'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 
 const Admin = (props) => {
     const [collapsed, setCollapsed] = useState(false)
+
+    useEffect(() => {
+        document.title = 'Admin | QUIZ'
+    }, [])
 
     return (
         <div className="admin-container">

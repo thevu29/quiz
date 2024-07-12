@@ -3,19 +3,58 @@ import { ReactSVG } from 'react-svg'
 import './Login.scss'
 import GoogleIcon from '../../assets/icons/google.svg'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
-import { useState } from 'react'
+import { MdOutlineWarningAmber } from 'react-icons/md'
+import { useEffect, useState } from 'react'
+import { postLogin } from '../../services/authApiService'
+import { toast } from 'react-toastify'
 
 const Login = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isShowPassword, setIsShowPassword] = useState(false)
+    const [validateEmail, setValidateEmail] = useState({ text: '', isValid: true })
+    const [validatePassword, setValidatePassword] = useState({ text: '', isValid: true })
 
-    const handleShowHidePassowrd = () => {
-        
+    useEffect(() => {
+        document.title = 'Log in | QUIZ'
+    }, [])
+
+    const validation = () => {
+        let valid = true
+
+        if (!email) {
+            setValidateEmail({ text: 'Please enter your email address', isValid: false })
+            valid = false
+        }
+        if (!password) {
+            setValidatePassword({ text: 'Please enter your password', isValid: false })
+            valid = false
+        }
+
+        return valid
     }
 
-    const handleLogin = () => {
+    const resetForm = () => {
+        setEmail('')
+        setPassword('')
+    }
 
+    const handleLogin = async e => {
+        e.preventDefault()
+
+        if (!validation()) return
+        
+        const res = await postLogin(email, password)
+        
+        if (res && res.EC === 0) {
+            toast.success('Login successfully')
+            resetForm()
+        } else {
+            toast.error(res.EM)
+        }
+
+        setValidateEmail({ text: '', isValid: true })
+        setValidatePassword({ text: '', isValid: true })
     }
 
     return (
@@ -42,6 +81,12 @@ const Login = (props) => {
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
                             />
+                            {validateEmail && !validateEmail.isValid && (
+                                <span className="form-input-error">
+                                    <MdOutlineWarningAmber />
+                                    Please enter your email address
+                                </span>
+                            )}
                         </div>
                     </div>
                     <div className="form-group">
@@ -50,18 +95,26 @@ const Login = (props) => {
                         </div>
                         <div className="form-input-container">
                             <input
-                                type="password"
+                                type={isShowPassword ? 'text' : 'password'}
                                 className="form-input"
                                 placeholder="At least 8 characters"
                                 value={password}
                                 onChange={e => setPassword(e.target.value)}
                             />
                             <span className="password-toggle">
-                                <span className="passowrd-toggle-icon" onClick={e => handleShowHidePassowrd()}>
-                                    <FaRegEye color="#D2D2D2" cursor='pointer' />
-                                    {/* <FaRegEyeSlash color="#D2D2D2" cursor='pointer' /> */}
+                                <span className="passowrd-toggle-icon" onClick={() => setIsShowPassword(!isShowPassword)}>
+                                    {isShowPassword
+                                        ? <FaRegEyeSlash color="#D2D2D2" cursor='pointer' />
+                                        : <FaRegEye color="#D2D2D2" cursor='pointer' />
+                                    }
                                 </span>
                             </span>
+                            {validatePassword && !validatePassword.isValid && (
+                                <span className="form-input-error">
+                                    <MdOutlineWarningAmber />
+                                    Please enter your password
+                                </span>
+                            )}
                         </div>
                     </div>
                     <div className="mb-4">
@@ -70,7 +123,7 @@ const Login = (props) => {
                     <div className="mb-4">
                         <button
                             className="btn btn-dark w-100 btn-login"
-                            onClick={() => handleLogin()}
+                            onClick={e => handleLogin(e)}
                         >
                             Log in to QUIZ
                         </button>

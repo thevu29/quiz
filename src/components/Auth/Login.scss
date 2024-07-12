@@ -63,7 +63,7 @@
             transition: padding-top 0.4s;
 
             .form-group {
-                margin-bottom: 8px;
+                margin-bottom: 4px;
 
                 .form-label {
                     font-weight: 600;
@@ -111,6 +111,16 @@
                             color: #c6c4c6;
                             font-size: 14px;
                         }
+                    }
+
+                    .form-input-error {
+                        font-size: 14px;
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        color: #d93934;
+                        padding: 8px 0 6px;
+                        font-weight: 400;
                     }
 
                     .password-toggle {
