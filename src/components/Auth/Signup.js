@@ -1,5 +1,6 @@
 import SignupImage from '../../assets/images/signup.webp'
 import './Signup.scss'
+import './Auth.scss'
 import GoogleIcon from '../../assets/icons/google.svg'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { MdOutlineWarningAmber } from 'react-icons/md'
@@ -7,6 +8,8 @@ import { ReactSVG } from 'react-svg'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { isValidEmail } from '../../validation/Validate'
+import { postRegister } from '../../services/authApiService'
+import { toast } from 'react-toastify'
 
 const Signup = (props) => {
     const navigate = useNavigate()
@@ -30,27 +33,46 @@ const Signup = (props) => {
         if (!email) {
             setValidateEmail({ text: 'Please enter your email address', isValid: false })
             valid = false
+        } else {
+            setValidateEmail({ text: '', isValid: true })
         }
+
         if (!password) {
             setValidatePassword({ text: 'Please enter your password', isValid: false })
             valid = false
+        } else {
+            setValidatePassword({ text: '', isValid: true })
         }
+
         if (!policy) {
             setValidatePolicy({ text: 'Please accept the policies', isValid: false })
             valid = false
+        } else {
+            setValidatePolicy({ text: '', isValid: true })
         }
+
         if (email && !isValidEmail(email)) {
             setValidateEmail({ text: 'Please enter a valid email address', isValid: false })
             valid = false
+        } else {
+            setValidateEmail({ text: '', isValid: true })
         }
 
         return valid
     }
 
-    const handleSignup = e => {
+    const handleSignup = async e => {
         e.preventDefault()
-
+        
         if (!validation()) return
+
+        const res = await postRegister(email, password, username)
+        if (res && res.EC === 0) {
+            toast.success('Sign up successfully')
+            navigate('/login')
+        } else {
+            toast.error(res.EM)
+        }
     }
 
     const handleLogin = () => navigate('/login')

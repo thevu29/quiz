@@ -31,22 +31,25 @@ const Login = (props) => {
         if (!email) {
             setValidateEmail({ text: 'Please enter your email address', isValid: false })
             valid = false
+        } else {
+            setValidateEmail({ text: '', isValid: true })
         }
+
         if (!password) {
             setValidatePassword({ text: 'Please enter your password', isValid: false })
             valid = false
+        } else {
+            setValidatePassword({ text: '', isValid: true })
         }
+
         if (email && !isValidEmail(email)) {
             setValidateEmail({ text: 'Please enter a valid email address', isValid: false })
             valid = false
+        } else {
+            setValidateEmail({ text: '', isValid: true })
         }
 
         return valid
-    }
-
-    const resetForm = () => {
-        setEmail('')
-        setPassword('')
     }
 
     const handleLogin = async e => {
@@ -57,8 +60,8 @@ const Login = (props) => {
         const res = await postLogin(email, password)
 
         if (res && res.EC === 0) {
+            navigate('/')
             toast.success('Login successfully')
-            resetForm()
         } else {
             toast.error(res.EM)
         }
