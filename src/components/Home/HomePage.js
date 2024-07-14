@@ -74,7 +74,7 @@ const HomePage = () => {
                     </Col>
                 </Row>
                 <div className="text-center">
-                    <h1>Why QUIZ?</h1>
+                    <h1 style={ {fontSize: '48px'} }>Why QUIZ?</h1>
                     <p>Because after switching to us...</p>
                 </div>
             </Container>
