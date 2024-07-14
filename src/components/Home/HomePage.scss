@@ -1,0 +1,96 @@
+@import "../../App.scss";
+
+.homepage-container {
+    font-family: "Apercu Pro", "Helvetica Neue", sans-serif;
+    padding: 40px 0 0 0;
+
+    .homepage-box {
+        margin-bottom: 120px;
+
+        .homepage-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: left;
+
+            h1 {
+                font-size: 60px;
+                letter-spacing: -0.02em;
+                line-height: 1.1;
+            }
+
+            p {
+                margin-top: 32px;
+                font-size: 20px;
+                letter-spacing: -0.01em;
+                line-height: 1.2;
+                text-wrap: balance;
+            }
+
+            .btn {
+                min-width: 160px;
+                margin-top: 40px;
+                padding: 12px 24px;
+                border-radius: 12px;
+                background-color: $primary-color;
+                border: 1px solid $primary-color;
+
+                &:hover {
+                    color: var(--bs-btn-hover-color);
+                    background-color: var(--bs-btn-hover-bg);
+                    border-color: var(--bs-btn-hover-border-color);
+                }
+            }
+        }
+    }
+
+    .homepage-information {
+        position: relative;
+        background-color: #ffffff;
+        padding: 96px 80px;
+        display: flex;
+        justify-content: center;
+        border-radius: 0 0 120px 120px;
+
+        div {
+            padding: 0 90px;
+            gap: 32px;
+
+            span {
+                text-align: center;
+                &:first-child {
+                    font-size: 64px;
+                    font-weight: 400;
+                }
+
+                &:not(:first-child) {
+                    font-size: 20px;
+                    font-weight: 400;
+                    line-height: 140%;
+                }
+            }
+        }
+
+        &::before,
+        &::after {
+            position: absolute;
+            content: "";
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            height: 96px;
+        }
+
+        &::before {
+            background-color: $primary-color;
+        }
+
+        &::after {
+            background-color: #ffffff;
+            border-bottom-left-radius: 120px;
+            border-bottom-right-radius: 120px;
+        }
+    }
+}

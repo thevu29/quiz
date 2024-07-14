@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import './App.scss'
 import Header from './components/Header/Header'
 import { useEffect } from 'react'
+import Footer from './components/Footer/Footer'
 
 const App = () => {
   useEffect(() => {
@@ -20,6 +21,9 @@ const App = () => {
         <div className='app-content'>
           <Outlet />
         </div>
+      </div>
+      <div className="footer-container">
+        <Footer />
       </div>
     </div>
   )

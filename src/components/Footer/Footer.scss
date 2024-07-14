@@ -1,0 +1,28 @@
+@import "../../App.scss";
+
+.footer-container {
+    font-family: "Apercu Pro", "Helvetica Neue", sans-serif;
+    padding-top: 48px;
+    background-color: $primary-color;
+    color: #ffffff;
+
+    .btn {
+        min-width: 160px;
+        padding: 12px 24px;
+        border-radius: 12px;
+    }
+
+    .footer-information {
+        padding: 40px 0;
+        border-top: 1px solid rgb(61, 61, 60);
+        font-size: 14px;
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+    }
+}

@@ -1,4 +1,33 @@
+@import '../../App.scss';
+
 .header-container {
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+    color: $primary-color;
+    background-color: #ffffffe6;
+    backdrop-filter: saturate(180%) blur(20px);
+    transition:
+        height 600ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
+        box-shadow 600ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+
+    .navbar-nav {
+        .nav-link {
+            color: $primary-color;
+
+            &.active {
+                color: $active-color;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .navbar-brand {
+        color: $primary-color;
+        font-weight: 600;
+        font-size: 32px;
+    }
+
     .btn-login {
         display: inline-block;
         padding: 0.375rem 0.75rem;
