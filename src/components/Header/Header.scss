@@ -1,6 +1,18 @@
-@import '../../App.scss';
+@import "../../App.scss";
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
 .header-container {
+    font-family: "Apercu Pro", "Helvetica Neue", sans-serif;
     position: sticky;
     top: 0;
     z-index: 1001;
@@ -51,6 +63,154 @@
 
         &:hover {
             opacity: 0.9;
+        }
+    }
+
+    .user-information-container {
+        height: 32px;
+        position: relative;
+        user-select: none;
+        cursor: pointer;
+        
+        &:hover .user-dropdown-container {
+            display: block;
+            animation: fadeIn 0.5s ease forwards
+        }
+
+        .user-information-avatar {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans",
+                "Droid Sans", "Helvetica Neue", sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            position: relative;
+            display: inline-flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            vertical-align: middle;
+            overflow: hidden;
+            user-select: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #f4d39f;
+            color: #3d3d3c;
+            padding: 0px;
+            border: 0px;
+            transition-property: background-color, color, border-color;
+            transition-duration: 0.2s;
+
+            img {
+                border-radius: 50%;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .user-dropdown-container {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans",
+                "Droid Sans", "Helvetica Neue", sans-serif;
+            position: absolute;
+            right: 0;
+            background-color: rgb(255, 255, 255);
+            color: rgb(38, 38, 39);
+            border-radius: 8px;
+            box-shadow:
+                rgba(0, 0, 0, 0.08) 0px 2px 4px,
+                rgba(0, 0, 0, 0.06) 0px 2px 12px;
+            margin-top: 6px;
+            padding: 8px 0px;
+            min-width: 276px;
+            max-width: 276px;
+            cursor: default;
+            transform: translate(753.6px, 52px);
+            display: none;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: -10px;
+                left: 0;
+                right: 0;
+                height: 10px;
+                background-color: transparent;
+            }
+
+            .user-dropdown-header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 0 16px 8px 16px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+                margin-bottom: 8px;
+
+                .user-header-name {
+                    font-size: 14px;
+                    line-height: 20px;
+                    font-weight: 500;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                .user-header-email {
+                    font-size: 12px;
+                    line-height: 18px;
+                    color: #737373;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+
+            .user-dropdown-group {
+                margin-bottom: 8px;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+                }
+
+                .group-header {
+                    margin-bottom: 4px;
+                    padding: 8px 16px 4px;
+                    font-size: 12px;
+                    line-height: 18px;
+                    font-weight: 700;
+                    letter-spacing: 0.1em;
+                }
+
+                .group-link {
+                    display: flex;
+                    align-items: center;
+                    margin: 0px;
+                    background: none #ffffff;
+                    border: none;
+                    max-width: 100%;
+                    text-align: left;
+                    color: inherit;
+                    cursor: pointer;
+                    min-height: 32px;
+                    text-decoration: none;
+                    outline: none;
+                    width: 100%;
+                    font-size: 14px;
+                    line-height: 20px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    padding: 0px 16px;
+
+                    &:hover {
+                        background-color: #f0f0f0;
+                    }
+                }
+
+                .group-logout {
+                    color: #af0404;
+                }
+            }
         }
     }
 }

@@ -42,7 +42,20 @@ body {
   min-height: 100%;
 }
 
-.header {
-  font-weight: 600;
-  font-size: 24px;
+.app-container {
+  overflow: hidden;
+}
+
+.loading-icon {
+  margin-right: 6px;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+      transform: scale(1) rotate(0deg);
+  }
+  to {
+      transform: scale(1) rotate(360deg);
+  }
 }

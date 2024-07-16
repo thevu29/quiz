@@ -3,12 +3,15 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import './Header.scss'
+import { useSelector } from 'react-redux'
+import UserDefaultImage from '../../assets/images/user_default.png'
 
 const Header = () => {
     const navigate = useNavigate()
+    const account = useSelector(state => state.user.account)
+    const isAuthenticated = useSelector(state => state.user.isAuthenticated)
 
     const handleLogin = () => navigate('/login')
-
     const handleSignup = () => navigate('/signup')
 
     return (
@@ -23,8 +26,50 @@ const Header = () => {
                         <NavLink to="/admin" className="nav-link">Admin</NavLink>
                     </Nav>
                     <Nav>
-                        <button className="btn-login me-2" onClick={() => handleLogin()}>Log in</button>
-                        <button className="btn btn-dark" onClick={() => handleSignup()}>Sign up</button>
+                        {!isAuthenticated
+                            ? (
+                                <>
+                                    <button className="btn-login me-2" onClick={() => handleLogin()}>Log in</button>
+                                    <button className="btn btn-dark" onClick={() => handleSignup()}>Sign up</button>
+                                </>
+                            )
+                            : (
+                                <div className="user-information-container">
+                                    <div className="user-information-avatar">
+                                        <img
+                                            src={account.image ? `data:image/jpeg;base64,${account.image}` : UserDefaultImage}
+                                            alt=""
+                                        />
+                                    </div>
+
+                                    <div className="user-dropdown-container">
+                                        <div className="user-dropdown-header">
+                                            <div>
+                                                <div className="user-information-avatar">
+                                                    <img
+                                                        src={account.image ? `data:image/jpeg;base64,${account.image}` : UserDefaultImage}
+                                                        alt=""
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="d-flex flex-column">
+                                                <span className="user-header-name">
+                                                    {account.username ? account.username : account.email}
+                                                </span>
+                                                <span className="user-header-email">{account.email}</span>
+                                            </div>
+                                        </div>
+                                        <div className="user-dropdown-group">
+                                            <div className="group-header">ACCOUNT</div>
+                                            <Link to="" className="group-link">Your Account</Link>
+                                        </div>
+                                        <div className="user-dropdown-group">
+                                            <button className="group-link group-logout">Log out</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>

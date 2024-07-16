@@ -1,7 +1,7 @@
 import axios from '../utils/axiosCustom'
 
-const postLogin = (email, password) => {
-    return axios.post('api/v1/login', { email, password })
+const postLogin = (email, password, delay = 3000) => {
+    return axios.post('api/v1/login', { email, password, delay })
 }
 
 const postRegister = (email, password, username) => {

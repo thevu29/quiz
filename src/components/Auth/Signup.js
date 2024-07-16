@@ -68,7 +68,7 @@ const Signup = (props) => {
 
         const res = await postRegister(email, password, username)
         if (res && res.EC === 0) {
-            toast.success('Sign up successfully')
+            toast.success('Create account successfully, please login to continue!')
             navigate('/login')
         } else {
             toast.error(res.EM)

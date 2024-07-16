@@ -9,15 +9,20 @@ import { useEffect, useState } from 'react'
 import { postLogin } from '../../services/authApiService'
 import { toast } from 'react-toastify'
 import { isValidEmail } from '../../validation/Validate'
+import { useDispatch } from 'react-redux'
+import { login } from '../../redux/action/userAction'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 const Login = (props) => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isShowPassword, setIsShowPassword] = useState(false)
     const [validateEmail, setValidateEmail] = useState({ text: '', isValid: true })
     const [validatePassword, setValidatePassword] = useState({ text: '', isValid: true })
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSignup = () => navigate('/signup')
 
@@ -57,13 +62,17 @@ const Login = (props) => {
 
         if (!validation()) return
         
+        setIsLoading(true)
         const res = await postLogin(email, password)
-
+        
         if (res && res.EC === 0) {
+            dispatch(login(res))
+            setIsLoading(false)
             navigate('/')
             toast.success('Login successfully')
         } else {
             toast.error(res.EM)
+            setIsLoading(false)
         }
 
         setValidateEmail({ text: '', isValid: true })
@@ -135,9 +144,11 @@ const Login = (props) => {
                     </div>
                     <div className="mb-4">
                         <button
-                            className="btn btn-dark w-100"
+                            className="btn btn-dark w-100 d-flex align-items-center justify-content-center"
                             onClick={e => handleLogin(e)}
+                            disabled={isLoading}
                         >
+                            {isLoading && <AiOutlineLoading3Quarters className="loading-icon" />}
                             Log in to QUIZ
                         </button>
                     </div>

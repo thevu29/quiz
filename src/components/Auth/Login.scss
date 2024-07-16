@@ -57,4 +57,11 @@
             }
         }
     }
+
+    button {
+        &:disabled {
+            cursor: no-drop;
+            pointer-events: default;
+        }
+    }
 }
