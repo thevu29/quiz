@@ -11,6 +11,7 @@ import ManageUser from './components/Admin/content/ManageUser'
 import Dashboard from './components/Admin/content/Dashboard'
 import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
+import QuizList from './components/User/QuizList'
 
 const Layout = () => {
     return (
@@ -20,7 +21,7 @@ const Layout = () => {
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
-                    <Route path="user" element={<User />} />
+                    <Route path="user" element={<QuizList />} />
                 </Route>
 
                 <Route path="/admin" element={<Admin />}>

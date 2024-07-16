@@ -6,8 +6,11 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const HomePage = () => {
+    const isAuthenticated = useSelector(state => state.user.isAuthenticated)
+
     return (
         <div className='homepage-container'>
             <Container>
@@ -26,7 +29,10 @@ const HomePage = () => {
                                     <strong> refreshingly different.</strong>
                                 </span>
                             </p>
-                            <Link to='/signup' className='btn btn-dark'>Get started—it's free</Link>
+                            {isAuthenticated
+                                ? <Link to='/user' className='btn btn-dark'>Let's do quiz</Link>
+                                : <Link to='/signup' className='btn btn-dark'>Get started—it's free</Link>
+                            }
                         </div>
                     </Col>
                 </Row>
@@ -44,7 +50,10 @@ const HomePage = () => {
                                     and make form-filling feel effortless by replacing walls of questions with just one at a time.
                                 </span>
                             </p>
-                            <Link to='/signup' className='btn btn-dark'>Sign up</Link>
+                            {isAuthenticated
+                                ? <Link to='/user' className='btn btn-dark'>Do quiz now</Link>
+                                : <Link to='/signup' className='btn btn-dark'>Sign up</Link>
+                            }
                         </div>
                     </Col>
                     <Col>
@@ -69,12 +78,15 @@ const HomePage = () => {
                                     Ask the right follow-up question at the right time to reveal deeper insights.
                                 </span>
                             </p>
-                            <Link to='/signup' className='btn btn-dark'>Sign up</Link>
+                            {isAuthenticated
+                                ? <Link to='/user' className='btn btn-dark'>Do quiz now</Link>
+                                : <Link to='/signup' className='btn btn-dark'>Sign up</Link>
+                            }
                         </div>
                     </Col>
                 </Row>
                 <div className="text-center">
-                    <h1 style={ {fontSize: '48px'} }>Why QUIZ?</h1>
+                    <h1 style={{ fontSize: '48px' }}>Why QUIZ?</h1>
                     <p>Because after switching to us...</p>
                 </div>
             </Container>
