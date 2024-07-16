@@ -4,7 +4,6 @@ import Favicon from 'react-favicon'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import App from './App'
-import User from './components/User/User'
 import Admin from './components/Admin/Admin'
 import HomePage from './components/Home/HomePage'
 import ManageUser from './components/Admin/content/ManageUser'
@@ -21,7 +20,7 @@ const Layout = () => {
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
-                    <Route path="user" element={<QuizList />} />
+                    <Route path="quiz" element={<QuizList />} />
                 </Route>
 
                 <Route path="/admin" element={<Admin />}>

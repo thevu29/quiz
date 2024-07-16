@@ -30,7 +30,7 @@ const HomePage = () => {
                                 </span>
                             </p>
                             {isAuthenticated
-                                ? <Link to='/user' className='btn btn-dark'>Let's do quiz</Link>
+                                ? <Link to='/quiz' className='btn btn-dark'>Let's do quiz</Link>
                                 : <Link to='/signup' className='btn btn-dark'>Get started—it's free</Link>
                             }
                         </div>
@@ -51,7 +51,7 @@ const HomePage = () => {
                                 </span>
                             </p>
                             {isAuthenticated
-                                ? <Link to='/user' className='btn btn-dark'>Do quiz now</Link>
+                                ? <Link to='/quiz' className='btn btn-dark'>Do quiz now</Link>
                                 : <Link to='/signup' className='btn btn-dark'>Sign up</Link>
                             }
                         </div>
@@ -79,7 +79,7 @@ const HomePage = () => {
                                 </span>
                             </p>
                             {isAuthenticated
-                                ? <Link to='/user' className='btn btn-dark'>Do quiz now</Link>
+                                ? <Link to='/quiz' className='btn btn-dark'>Do quiz now</Link>
                                 : <Link to='/signup' className='btn btn-dark'>Sign up</Link>
                             }
                         </div>
