@@ -7,21 +7,26 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 const HomePage = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
 
+    useEffect(() => {
+        document.title = 'QUIZ'
+      }, [])
+
     return (
-        <div className='homepage-container'>
+        <div className="homepage-container">
             <Container>
                 <Row className="homepage-box">
                     <Col>
-                        <video width='100%' autoPlay loop muted className=''>
-                            <source src={videoHomepage} type='video/webm' />
+                        <video width="100%" autoPlay loop muted>
+                            <source src={videoHomepage} type="video/webm" />
                         </video>
                     </Col>
                     <Col>
-                        <div className='homepage-content'>
+                        <div className="homepage-content">
                             <h1>Make forms <br></br> worth filling out</h1>
                             <p>
                                 <span>
@@ -30,8 +35,8 @@ const HomePage = () => {
                                 </span>
                             </p>
                             {isAuthenticated
-                                ? <Link to='/quiz' className='btn btn-dark'>Let's do quiz</Link>
-                                : <Link to='/signup' className='btn btn-dark'>Get started—it's free</Link>
+                                ? <Link to="/quiz" className="btn btn-dark">Let"s do quiz</Link>
+                                : <Link to="/signup" className="btn btn-dark">Get started—it"s free</Link>
                             }
                         </div>
                     </Col>
@@ -41,7 +46,7 @@ const HomePage = () => {
                 </div>
                 <Row className="homepage-box mt-5">
                     <Col>
-                        <div className='homepage-content'>
+                        <div className="homepage-content">
                             <h1>Looks striking. Feels effortless.</h1>
                             <p>
                                 <span>
@@ -51,25 +56,25 @@ const HomePage = () => {
                                 </span>
                             </p>
                             {isAuthenticated
-                                ? <Link to='/quiz' className='btn btn-dark'>Do quiz now</Link>
-                                : <Link to='/signup' className='btn btn-dark'>Sign up</Link>
+                                ? <Link to="/quiz" className="btn btn-dark">Do quiz now</Link>
+                                : <Link to="/signup" className="btn btn-dark">Sign up</Link>
                             }
                         </div>
                     </Col>
                     <Col>
-                        <video width='100%' autoPlay loop muted className=''>
-                            <source src={videoHomepage2} type='video/webm' />
+                        <video width="100%" autoPlay loop muted>
+                            <source src={videoHomepage2} type="video/webm" />
                         </video>
                     </Col>
                 </Row>
                 <Row className="homepage-box mt-5">
                     <Col>
-                        <video width='100%' autoPlay loop muted className=''>
-                            <source src={videoHomepage3} type='video/webm' />
+                        <video width="100%" autoPlay loop muted>
+                            <source src={videoHomepage3} type="video/webm" />
                         </video>
                     </Col>
                     <Col className="ms-5">
-                        <div className='homepage-content'>
+                        <div className="homepage-content">
                             <h1>Embeds smoothly. <br /> Reveals more.</h1>
                             <p>
                                 <span>
@@ -79,14 +84,14 @@ const HomePage = () => {
                                 </span>
                             </p>
                             {isAuthenticated
-                                ? <Link to='/quiz' className='btn btn-dark'>Do quiz now</Link>
-                                : <Link to='/signup' className='btn btn-dark'>Sign up</Link>
+                                ? <Link to="/quiz" className="btn btn-dark">Do quiz now</Link>
+                                : <Link to="/signup" className="btn btn-dark">Sign up</Link>
                             }
                         </div>
                     </Col>
                 </Row>
                 <div className="text-center">
-                    <h1 style={{ fontSize: '48px' }}>Why QUIZ?</h1>
+                    <h1 style={{ fontSize: "48px" }}>Why QUIZ?</h1>
                     <p>Because after switching to us...</p>
                 </div>
             </Container>

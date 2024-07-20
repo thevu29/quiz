@@ -1,15 +1,21 @@
 import { Link } from 'react-router-dom'
 import './Footer.scss'
 import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa6'
+import { useSelector } from 'react-redux'
 
 const Footer = () => {
+    const isAuthenticated = useSelector(state => state.user.isAuthenticated)
+
     return (
         <>
             <div className="d-flex flex-column align-items-center justify-content-center text-center py-5">
                 <h1>Break the norm <br /> of forms</h1>
                 <p>Our Free Plan lets you:</p>
                 <p>Create unlimited forms <br /> Access 3,000+ templates <br /> Start getting responses</p>
-                <Link to="/signup" className="btn btn-light">Sign up</Link>
+                {isAuthenticated
+                    ? <Link to="/quiz" className="btn btn-light">Do quiz now</Link>
+                    : <Link to="/signup" className="btn btn-light">Sign up</Link>
+                }
             </div>
 
             <div className="footer-information">

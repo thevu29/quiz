@@ -11,6 +11,8 @@ import Dashboard from './components/Admin/content/Dashboard'
 import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
 import QuizList from './components/User/QuizList'
+import QuizDetail from './components/User/QuizDetail'
+import NotFound from './components/NotFound/NotFound'
 
 const Layout = () => {
     return (
@@ -21,6 +23,7 @@ const Layout = () => {
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
                     <Route path="quiz" element={<QuizList />} />
+                    <Route path="/quiz/:id" element={<QuizDetail />} />
                 </Route>
 
                 <Route path="/admin" element={<Admin />}>
@@ -30,6 +33,7 @@ const Layout = () => {
 
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
 
             <ToastContainer

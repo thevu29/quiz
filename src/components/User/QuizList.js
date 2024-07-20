@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import { getQuizByUser } from '../../services/quizApiService'
 import './QuizList.scss'
+import { useNavigate } from 'react-router-dom'
 
 const QuizList = (props) => {
     const [quizList, setQuizList] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
+        document.title = 'Quiz'
         fetchQuizList()
     }, [])
 
@@ -13,7 +16,6 @@ const QuizList = (props) => {
         const res = await getQuizByUser()
         if (res && res.EC === 0) {
             setQuizList(res.DT)
-            console.log(res.DT)
         }
     }
 
@@ -33,7 +35,11 @@ const QuizList = (props) => {
                                         <div className="quiz-item-body">
                                             <h5 className="quiz-item-title">Quiz {index + 1}</h5>
                                             <p className="quiz-item-text">{quiz.description}</p>
-                                            <button className="btn btn-primary w-100">Start now</button>
+                                            <button
+                                                className="btn btn-primary w-100"
+                                                onClick={() => navigate(`/quiz/${quiz.id}`, { state: { quizTitle: quiz.description } })}
+                                            >
+                                                Start now</button>
                                         </div>
                                     </div>
                                 </div>
@@ -41,10 +47,10 @@ const QuizList = (props) => {
                         })
                     }
 
-                    {quizList && quizList.length === 0 && 
-                        <div>
+                    {quizList && quizList.length === 0 &&
+                        <h1 className="text-center">
                             You don't have any quiz
-                        </div>
+                        </h1>
                     }
                 </div>
             </div>
