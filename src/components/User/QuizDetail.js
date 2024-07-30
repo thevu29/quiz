@@ -4,7 +4,9 @@ import { getQuizDetailById, postSubmitQuiz } from '../../services/quizApiService
 import _ from 'lodash'
 import './QuizDetail.scss'
 import Question from './Question'
-import ModalResult from './ModalResult'
+import ModalResult from './QuizModal'
+import { FaCheckCircle } from 'react-icons/fa'
+import { MdRefresh } from 'react-icons/md'
 
 const QuizDetail = (props) => {
     const params = useParams()
@@ -13,10 +15,11 @@ const QuizDetail = (props) => {
     const { quizTitle } = location?.state
 
     const [quizDetail, setQuizDetail] = useState([])
-    const [index, setIndex] = useState(0)
-    const [showModalResult, setShowModalResult] = useState(false)
+    const [quizIndex, setQuizIndex] = useState(0)
+    const [showQuizModal, setShowQuizModal] = useState(false)
     const [results, setResults] = useState(null)
     const [isShowResult, setIsShowResult] = useState(false)
+    const [modalAction, setModalAction] = useState('')
 
     useEffect(() => {
         document.title = 'Quiz'
@@ -80,10 +83,11 @@ const QuizDetail = (props) => {
             }
 
             const res = await postSubmitQuiz(payload)
-            console.log(res)
+
             if (res && res.EC === 0) {
                 setResults(res.DT)
-                setShowModalResult(true)
+                setModalAction('submit')
+                setShowQuizModal(true)
             }
         }
     }
@@ -91,11 +95,22 @@ const QuizDetail = (props) => {
     const handleResetQuiz = () => {
         let quizDetailClone = _.cloneDeep(quizDetail)
         quizDetailClone.forEach(item => {
-            item.answers.forEach(answer => {
-                answer.isSelected = false
-            })
+            item.answers.forEach(answer => answer.isSelected = false)
         })
         setQuizDetail(quizDetailClone)
+    }
+
+    const handleShowRedoModal = () => {
+        setModalAction('redo')
+        setShowQuizModal(true)
+    }
+
+    const handleRedo = () => {
+        handleResetQuiz()
+        setShowQuizModal(false)
+        setQuizIndex(0)
+        setResults(null)
+        setIsShowResult(false)
     }
 
     return (
@@ -111,26 +126,26 @@ const QuizDetail = (props) => {
                                 </div>
 
                                 <Question
-                                    question={quizDetail && quizDetail.length > 0 ? quizDetail[index] : {}}
-                                    index={index}
+                                    question={quizDetail && quizDetail.length > 0 ? quizDetail[quizIndex] : {}}
+                                    quizIndex={quizIndex}
                                     handleChooseAnswer={handleChooseAnswer}
                                     results={results}
                                     isShowResult={isShowResult}
                                 />
 
                                 <div className="d-flex align-items-center justify-content-center mt-5">
-                                    {index > 0 && (
+                                    {quizIndex > 0 && (
                                         <button
                                             className="btn btn-outline-dark"
-                                            onClick={() => setIndex(index - 1)}
+                                            onClick={() => setQuizIndex(quizIndex - 1)}
                                         >
                                             Back
                                         </button>
                                     )}
-                                    {index < quizDetail.length - 1 && (
+                                    {quizIndex < quizDetail.length - 1 && (
                                         <button
                                             className="btn btn-outline-dark ms-3"
-                                            onClick={() => setIndex(index + 1)}
+                                            onClick={() => setQuizIndex(quizIndex + 1)}
                                         >
                                             Next
                                         </button>
@@ -148,17 +163,59 @@ const QuizDetail = (props) => {
                         </div>
                     </div>
                     <div className="col-md-4">
+                        <div className="quiz-detail-question-list">
+                            <div className="list-header">
+                                {results
+                                    ? (
+                                        <>
+                                            <div className="d-flex flex-column align-items-center">
+                                                <FaCheckCircle fontSize={20} />
+                                                <span>{results?.countCorrect}/{results?.countTotal}</span>
+                                                <span>Result</span>
+                                            </div>
+                                        </>
+                                    )
+                                    : (
+                                        <div className="d-flex flex-column align-items-center" onClick={handleSubmiQuiz}>
+                                            <FaCheckCircle fontSize={20} />
+                                            <span>Submit</span>
+                                        </div>
+                                    )
+                                }
+                                <div className="d-flex flex-column align-items-center" onClick={handleShowRedoModal}>
+                                    <MdRefresh fontSize={22} />
+                                    <span>Redo</span>
+                                </div>
+                            </div>
+                            <div className="list-body row">
+                                {quizDetail && quizDetail.length > 0 && quizDetail.map((item, index) => {
+                                    const isCurrentQuestion = index === quizIndex ? 'active' : ''
+                                    const isSelected = item.answers.find(answer => answer.isSelected) ? 'selected' : ''
 
+                                    return (
+                                        <div
+                                            key={`question-${index + 1}`}
+                                            className={`list-item col-2 ${isCurrentQuestion} ${isSelected}`}
+                                            onClick={() => setQuizIndex(index)}
+                                        >
+                                            <span>{index + 1}</span>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <ModalResult
-                showModalResult={showModalResult}
-                setShowModalResult={setShowModalResult}
+                modalAction={modalAction}
+                showQuizModal={showQuizModal}
+                setShowQuizModal={setShowQuizModal}
                 results={results}
                 setIsShowResult={setIsShowResult}
                 handleResetQuiz={handleResetQuiz}
+                handleRedo={handleRedo}
             />
         </div>
     )

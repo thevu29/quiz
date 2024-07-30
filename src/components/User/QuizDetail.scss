@@ -123,6 +123,65 @@
             }
         }
     }
+
+    .quiz-detail-question-list {
+        .list-header {
+            padding: 12px 24px;
+            background-color: #191919;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+
+            div {
+                cursor: pointer;
+
+                span {
+                    font-size: 14px;
+                    margin-top: 4px;
+                }
+            }
+        }
+
+        .list-body {
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-top: 0;
+            max-height: 500px;
+            margin: 0;
+            padding: 0 10px 10px;
+
+            .list-item {
+                text-align: center;
+                margin-top: 15px;
+
+                &.active {
+                    span {
+                        background-color: #efefef;
+                    }
+                }
+
+                &.selected {
+                    span {
+                        background-color: #0d6efd;
+                        border-color: #0d6efd;
+                        color: #fff;
+                    }
+                }
+
+                span {
+                    display: block;
+                    width: 30px;
+                    height: 30px;
+                    line-height: 30px;
+                    border-radius: 50%;
+                    border: 1px solid #999;
+                    font-size: 14px;
+                    margin: 0 auto;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
 }
 
 .quiz-result-modal {

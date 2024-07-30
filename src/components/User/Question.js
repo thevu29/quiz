@@ -1,7 +1,7 @@
 import _ from 'lodash'
 
 const Question = (props) => {
-    const { question, index, handleChooseAnswer, results, isShowResult } = props
+    const { question, quizIndex, handleChooseAnswer, results, isShowResult } = props
 
     if (_.isEmpty(question)) {
         return (<></>)
@@ -20,7 +20,7 @@ const Question = (props) => {
                 </div>
             )}
             <div className="quiz-detail-question">
-                <p className="quiz-detail-question-title">Question {index + 1}: {question.question}</p>
+                <p className="quiz-detail-question-title">Question {quizIndex + 1}: {question.question}</p>
                 <div className="quiz-detail-answer-list">
                     {question.answers && question.answers.length > 0 && question.answers.map((answer, index) => {
                         const isAnswerSelected = answer?.isSelected ? 'active' : ''
@@ -28,6 +28,7 @@ const Question = (props) => {
 
                         if (isShowResult && results && results.quizData.length > 0) {
                             const quizItem = results.quizData.find(item => +item.questionId === +question.questionId)
+                            
                             if (quizItem) {
                                 const { userAnswers, systemAnswers, isCorrect } = quizItem
                                 const userAnswer = userAnswers[0]
