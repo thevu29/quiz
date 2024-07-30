@@ -14,7 +14,7 @@ const HomePage = () => {
 
     useEffect(() => {
         document.title = 'QUIZ'
-      }, [])
+    }, [])
 
     return (
         <div className="homepage-container">
