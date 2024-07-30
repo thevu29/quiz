@@ -68,8 +68,14 @@ const Login = (props) => {
         if (res && res.EC === 0) {
             dispatch(login(res))
             setIsLoading(false)
-            navigate('/')
-            toast.success('Login successfully')
+
+            if (res.DT.role === 'ADMIN') {
+                navigate('/admin')
+            } else {
+                navigate('/')
+                toast.success('Login successfully')
+            }
+
         } else {
             toast.error(res.EM)
             setIsLoading(false)

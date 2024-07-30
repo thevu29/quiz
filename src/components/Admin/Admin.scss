@@ -168,17 +168,13 @@ $sidebar-bg-color: #181a20;
         .content-header {
             padding: 4px 24px;
             height: 60px;
+            color: #878a99;
             background-color: #fff;
             transition: all 0.1s ease-out;
             border-bottom: 1px solid #eef0f7;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-
-            svg {
-                color: #878a99;
-                width: 1.25em;
-                height: 1.25em;
-            }
         }
 
         .content-main {
