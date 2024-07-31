@@ -1,23 +1,16 @@
-import { useEffect, useState } from 'react'
-import _ from 'lodash'
+import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { toast } from 'react-toastify'
-import { putUpdateUser } from '../../../services/userApiService'
-import defaultImage from '../../../assets/images/default_image.jpg'
+import { isValidEmail } from '../../../../validation/Validate'
+import { postAddUser } from '../../../../services/userApiService'
+import { TiTimes } from 'react-icons/ti'
 
-const ModalUpdateUser = (props) => {
-    const {
-        show,
-        setShow,
-        fetchPaginateUser,
-        currentPage,
-        userUpdate,
-        setUserUpdate
-    } = props
+const ModalAddUser = (props) => {
+    const { show, setShow, fetchPaginateUser, setCurrentPage } = props
 
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('........')
+    const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
     const [role, setRole] = useState('USER')
     const [userImage, setUserImage] = useState('')
@@ -25,25 +18,13 @@ const ModalUpdateUser = (props) => {
 
     const handleCloseModal = () => {
         setEmail('')
-        setPassword('........')
+        setPassword('')
         setUsername('')
         setRole('USER')
         setUserImage('')
         setPreviewImage(null)
         setShow(false)
-        setUserUpdate({})
     }
-
-    useEffect(() => {
-        if (!_.isEmpty(userUpdate)) {
-            setEmail(userUpdate.email)
-            setUsername(userUpdate.username)
-            setRole(userUpdate.role)
-            userUpdate.image
-                ? setPreviewImage(`data:image/jpeg;base64,${userUpdate.image}`)
-                : setPreviewImage(defaultImage)
-        }
-    }, [userUpdate])
 
     const handleUploadImage = e => {
         if (e.target && e.target.files && e.target.files[0]) {
@@ -59,13 +40,29 @@ const ModalUpdateUser = (props) => {
         }
     }
 
-    const handleUpdateUser = async () => {
-        const res = await putUpdateUser(userUpdate.id, username, role, userImage)
+    const handleRemovePreviewImage = () => {
+        setPreviewImage(null)
+        setUserImage('')
+    }
+
+    const handleAddUser = async () => {
+        if (!isValidEmail(email)) {
+            toast.error('Invalid email')
+            return
+        }
+
+        if (!password) {
+            toast.error('Password is required')
+            return
+        }
+
+        const res = await postAddUser(email, password, username, role, userImage)
 
         if (res && res.EC === 0) {
-            toast.success('Update user successfully')
+            toast.success('Add user successfully')
             handleCloseModal()
-            await fetchPaginateUser(currentPage)
+            setCurrentPage(1)
+            await fetchPaginateUser(1)
         } else {
             toast.error(res.EM)
         }
@@ -81,7 +78,7 @@ const ModalUpdateUser = (props) => {
                 className="user-modal"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Update user</Modal.Title>
+                    <Modal.Title>Add new user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
@@ -92,7 +89,6 @@ const ModalUpdateUser = (props) => {
                                     <input
                                         type="email"
                                         className="form-control"
-                                        disabled
                                         value={email}
                                         onChange={e => setEmail(e.target.value)}
                                     />
@@ -104,7 +100,6 @@ const ModalUpdateUser = (props) => {
                                     <input
                                         type="password"
                                         className="form-control"
-                                        disabled
                                         value={password}
                                         onChange={e => setPassword(e.target.value)}
                                     />
@@ -141,6 +136,11 @@ const ModalUpdateUser = (props) => {
                                     ? <img src={previewImage} alt="Preview" />
                                     : <span>Preview Image</span>
                                 }
+                                {previewImage && (
+                                    <span className="remove-img-button" onClick={handleRemovePreviewImage}>
+                                        <TiTimes />
+                                    </span>
+                                )}
                             </div>
                             <div className="">
                                 <label className="btn btn-outline-dark btn-upload" htmlFor="upload-image">
@@ -160,8 +160,8 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleCloseModal}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={handleUpdateUser}>
-                        Save
+                    <Button variant="primary" onClick={handleAddUser}>
+                        Add
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -169,4 +169,4 @@ const ModalUpdateUser = (props) => {
     )
 }
 
-export default ModalUpdateUser
+export default ModalAddUser

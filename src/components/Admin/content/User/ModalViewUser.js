@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import _ from 'lodash'
 import Modal from 'react-bootstrap/Modal'
-import defaultImage from '../../../assets/images/default_image.jpg'
+import defaultImage from '../../../../assets/images/default_image.jpg'
 
 const ModalViewUser = (props) => {
     const { show, setShow, userView, setUserView } = props

@@ -141,6 +141,27 @@
         margin-bottom: 10px;
         border: 1px dashed #ced4da;
         color: #ced4da;
+        position: relative;
+
+        .remove-img-button {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            border: 1px solid #ced4da;
+            width: 15px;
+            height: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #191919;
+                border-color: #191919;
+                color: #fff;
+            }
+        }
 
         img {
             height: 100%;

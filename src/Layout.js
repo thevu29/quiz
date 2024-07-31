@@ -6,13 +6,14 @@ import 'react-toastify/dist/ReactToastify.css'
 import App from './App'
 import Admin from './components/Admin/Admin'
 import HomePage from './components/Home/HomePage'
-import ManageUser from './components/Admin/content/ManageUser'
+import ManageUser from './components/Admin/content/User/ManageUser'
 import Dashboard from './components/Admin/content/Dashboard'
 import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
 import QuizList from './components/User/QuizList'
 import QuizDetail from './components/User/QuizDetail'
 import NotFound from './components/NotFound/NotFound'
+import ManageQuiz from './components/Admin/content/Quiz/ManageQuiz'
 
 const Layout = () => {
     return (
@@ -29,6 +30,7 @@ const Layout = () => {
                 <Route path="/admin" element={<Admin />}>
                     <Route index element={<Dashboard />} />
                     <Route path="manage-user" element={<ManageUser />} />
+                    <Route path="manage-quiz" element={<ManageQuiz />} />
                 </Route>
 
                 <Route path="/login" element={<Login />} />

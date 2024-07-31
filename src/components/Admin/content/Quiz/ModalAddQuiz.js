@@ -2,25 +2,23 @@ import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { toast } from 'react-toastify'
-import { isValidEmail } from '../../../validation/Validate'
-import { postAddUser } from '../../../services/userApiService'
+import { postAddQuiz } from '../../../../services/quizApiService'
+import { TiTimes } from 'react-icons/ti'
 
-const ModalAddUser = (props) => {
+const ModalAddQuiz = (props) => {
     const { show, setShow, fetchPaginateUser, setCurrentPage } = props
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [username, setUsername] = useState('')
-    const [role, setRole] = useState('USER')
-    const [userImage, setUserImage] = useState('')
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
+    const [diffculty, setDiffculty] = useState('EASY')
+    const [quizImage, setQuizImage] = useState('')
     const [previewImage, setPreviewImage] = useState(null)
 
     const handleCloseModal = () => {
-        setEmail('')
-        setPassword('')
-        setUsername('')
-        setRole('USER')
-        setUserImage('')
+        setName('')
+        setDescription('')
+        setDiffculty('EASY')
+        setQuizImage('')
         setPreviewImage(null)
         setShow(false)
     }
@@ -35,28 +33,36 @@ const ModalAddUser = (props) => {
             }
 
             setPreviewImage(URL.createObjectURL(e.target.files[0]))
-            setUserImage(e.target.files[0])
+            setQuizImage(e.target.files[0])
         }
     }
 
-    const handleAddUser = async () => {
-        if (!isValidEmail(email)) {
-            toast.error('Invalid email')
+    const handleRemovePreviewImage = () => {
+        setPreviewImage(null)
+        setQuizImage('')
+    }
+
+    const handleAddQuiz = async () => {
+        if (!name) {
+            toast.error('Name is required')
             return
         }
 
-        if (!password) {
-            toast.error('Password is required')
+        if (!description) {
+            toast.error('Description is required')
             return
         }
 
-        const res = await postAddUser(email, password, username, role, userImage)
+        if (!quizImage) {
+            toast.error('Image is required')
+            return
+        }
+
+        const res = await postAddQuiz(name, description, diffculty, quizImage)
 
         if (res && res.EC === 0) {
-            toast.success('Add user successfully')
+            toast.success('Add quiz successfully')
             handleCloseModal()
-            setCurrentPage(1)
-            await fetchPaginateUser(1)
         } else {
             toast.error(res.EM)
         }
@@ -69,57 +75,47 @@ const ModalAddUser = (props) => {
                 onHide={handleCloseModal}
                 size="lg"
                 backdrop="static"
-                className="user-modal"
+                className="quiz-modal"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Add new user</Modal.Title>
+                    <Modal.Title>Add new quiz</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-8">
                             <div className="row mb-3">
-                                <label className="col-form-label col-sm-2">Email</label>
-                                <div className="col-sm-10">
-                                    <input
-                                        type="email"
-                                        className="form-control"
-                                        value={email}
-                                        onChange={e => setEmail(e.target.value)}
-                                    />
-                                </div>
-                            </div>
-                            <div className="row mb-3">
-                                <label className="col-form-label col-sm-2">Password</label>
-                                <div className="col-sm-10">
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        value={password}
-                                        onChange={e => setPassword(e.target.value)}
-                                    />
-                                </div>
-                            </div>
-                            <div className="row mb-3">
-                                <label className="col-form-label col-sm-2">Username</label>
+                                <label className="col-form-label col-sm-2">Name</label>
                                 <div className="col-sm-10">
                                     <input
                                         type="text"
                                         className="form-control"
-                                        value={username}
-                                        onChange={e => setUsername(e.target.value)}
+                                        value={name}
+                                        onChange={e => setName(e.target.value)}
                                     />
                                 </div>
                             </div>
                             <div className="row mb-3">
-                                <label className="col-form-label col-sm-2">Role</label>
+                                <label className="col-form-label col-sm-2">Desciption</label>
+                                <div className="col-sm-10">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={description}
+                                        onChange={e => setDescription(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="row mb-3">
+                                <label className="col-form-label col-sm-2">Diffculty</label>
                                 <div className="col-sm-10">
                                     <select
                                         className="form-select"
-                                        value={role}
-                                        onChange={e => setRole(e.target.value)}
+                                        value={diffculty}
+                                        onChange={e => setDiffculty(e.target.value)}
                                     >
-                                        <option value="USER">User</option>
-                                        <option value="ADMIN">Admin</option>
+                                        <option value="EASY">Easy</option>
+                                        <option value="MEDIUM">Medium</option>
+                                        <option value="HARD">Hard</option>
                                     </select>
                                 </div>
                             </div>
@@ -130,6 +126,11 @@ const ModalAddUser = (props) => {
                                     ? <img src={previewImage} alt="Preview" />
                                     : <span>Preview Image</span>
                                 }
+                                {previewImage && (
+                                    <span className="remove-img-button" onClick={handleRemovePreviewImage}>
+                                        <TiTimes />
+                                    </span>
+                                )}
                             </div>
                             <div className="">
                                 <label className="btn btn-outline-dark btn-upload" htmlFor="upload-image">
@@ -149,7 +150,7 @@ const ModalAddUser = (props) => {
                     <Button variant="secondary" onClick={handleCloseModal}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={handleAddUser}>
+                    <Button variant="primary" onClick={handleAddQuiz}>
                         Add
                     </Button>
                 </Modal.Footer>
@@ -158,4 +159,4 @@ const ModalAddUser = (props) => {
     )
 }
 
-export default ModalAddUser
+export default ModalAddQuiz
