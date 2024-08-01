@@ -1,7 +1,15 @@
-import { FaCircleInfo, FaTrash, FaPenToSquare } from 'react-icons/fa6'
+import { FaTrash, FaPenToSquare } from 'react-icons/fa6'
 
 const QuizTable = (props) => {
-    const { quizList } = props
+    const {
+        quizList,
+        isCheckAll,
+        handleCheckAllQuiz,
+        handleCheckQuiz,
+        checkedQuiz,
+        handleShowModalUpdateQuiz,
+        handleShowModalDeleteQuiz
+    } = props
 
     return (
         <>
@@ -12,8 +20,8 @@ const QuizTable = (props) => {
                             <input
                                 type="checkbox"
                                 className="form-check-input"
-                                // onChange={handleCheckAllUser}
-                                // checked={isCheckAll}
+                                onChange={handleCheckAllQuiz}
+                                checked={isCheckAll}
                             />
                         </th>
                         <th scope="col">ID</th>
@@ -33,8 +41,8 @@ const QuizTable = (props) => {
                                             type="checkbox"
                                             className="form-check-input"
                                             id={quiz.id}
-                                            // onChange={handleCheckUser}
-                                            // checked={checkedUser.includes(user.id)}
+                                            onChange={handleCheckQuiz}
+                                            checked={checkedQuiz.includes(quiz.id)}
                                         />
                                     </td>
                                     <td>{quiz.id}</td>
@@ -43,20 +51,14 @@ const QuizTable = (props) => {
                                     <td>{quiz.difficulty}</td>
                                     <td>
                                         <span
-                                            className="me-1"
-                                            // onClick={() => handleShowModalViewUser(user)}
-                                        >
-                                            <FaCircleInfo color="#0d6efd" cursor="pointer" fontSize="18px" title="View" />
-                                        </span>
-                                        <span
                                             className="mx-1"
-                                            // onClick={() => handleShowModalUpdateUser(user)}
+                                            onClick={() => handleShowModalUpdateQuiz(quiz)}
                                         >
                                             <FaPenToSquare color="#ffc107" cursor="pointer" fontSize="18px" title="Update" />
                                         </span>
                                         <span
                                             className="ms-1"
-                                            // onClick={() => handleShowModalDeleteUser(user)}
+                                            onClick={() => handleShowModalDeleteQuiz(quiz)}
                                         >
                                             <FaTrash color="#dc3545" cursor="pointer" fontSize="16px" title="Delete" />
                                         </span>

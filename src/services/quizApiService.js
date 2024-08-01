@@ -1,5 +1,9 @@
 import axios from '../utils/axiosCustom'
 
+const getAllQuizzes = () => {
+    return axios.get('api/v1/quiz/all')
+}
+
 const getQuizByUser = () => {
     return axios.get('api/v1/quiz-by-participant')
 }
@@ -9,7 +13,7 @@ const getQuizDetailById = quizId => {
 }
 
 const postSubmitQuiz = payload => {
-    return axios.post('api/v1/quiz-submit', {...payload})
+    return axios.post('api/v1/quiz-submit', { ...payload })
 }
 
 const postAddQuiz = (name, description, difficulty, quizImage) => {
@@ -21,8 +25,26 @@ const postAddQuiz = (name, description, difficulty, quizImage) => {
     return axios.post('api/v1/quiz', data)
 }
 
-const getAllQuizzes = () => {
-    return axios.get('api/v1/quiz/all')
+const putUpdateQuiz = (id, name, description, difficulty, quizImage) => {
+    const data = new FormData()
+    data.append('id', id)
+    data.append('name', name)
+    data.append('description', description)
+    data.append('difficulty', difficulty)
+    data.append('quizImage', quizImage)
+    return axios.put('api/v1/quiz', data)
 }
 
-export { getQuizByUser, getQuizDetailById, postSubmitQuiz, postAddQuiz, getAllQuizzes }
+const deleteQuiz = id => {
+    return axios.delete(`api/v1/quiz/${id}`)
+}
+
+export {
+    getQuizByUser,
+    getQuizDetailById,
+    postSubmitQuiz,
+    postAddQuiz,
+    getAllQuizzes,
+    putUpdateQuiz,
+    deleteQuiz
+}

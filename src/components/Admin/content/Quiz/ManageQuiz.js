@@ -8,11 +8,19 @@ import { getAllQuizzes } from '../../../../services/quizApiService'
 import ModalAddQuiz from './ModalAddQuiz'
 import QuizTable from './QuizTable'
 import { Scrollbar } from 'react-scrollbars-custom'
+import ModalUpdateQuiz from './ModalUpdateQuiz'
+import ModalDeleteQuiz from './ModalDeleteQuiz'
 
 const ManageQuiz = (props) => {
     const [showModalAddQuiz, setShowModalAddQuiz] = useState(false)
+    const [showModalUpdateQuiz, setShowModalUpdateQuiz] = useState(false)
+    const [showModalDeleteQuiz, setShowModalDeleteQuiz] = useState(false)
 
+    const [quiz, setQuiz] = useState({})
     const [quizList, setQuizList] = useState([])
+
+    const [isCheckAll, setIsCheckAll] = useState(false)
+    const [checkedQuiz, setCheckedQuiz] = useState([])
 
     const fetchQuizList = async () => {
         const res = await getAllQuizzes()
@@ -24,6 +32,33 @@ const ManageQuiz = (props) => {
     useEffect(() => {
         fetchQuizList()
     }, [])
+
+    const handleCheckAllQuiz = () => {
+        setIsCheckAll(!isCheckAll)
+        setCheckedQuiz(quizList.map(quiz => +quiz.id))
+        if (isCheckAll) {
+            setCheckedQuiz([])
+        }
+    }
+
+    const handleCheckQuiz = e => {
+        const { id, checked } = e.target
+
+        setCheckedQuiz([...checkedQuiz, +id])
+        if (!checked) {
+            setCheckedQuiz(checkedQuiz.filter(item => item !== +id))
+        }
+    }
+
+    const handleShowModalUpdateQuiz = quiz => {
+        setShowModalUpdateQuiz(true)
+        setQuiz(quiz)
+    }
+
+    const handleShowModalDeleteQuiz = quiz => {
+        setShowModalDeleteQuiz(true)
+        setQuiz(quiz)
+    }
 
     return (
         <div className="manage-quiz-container">
@@ -53,7 +88,7 @@ const ManageQuiz = (props) => {
                     <div className="mb-4 d-flex align-items-center justify-content-between">
                         <h5 className="mb-0">Quizzes</h5>
                         <div className="d-flex align-items-center">
-                            {/* {checkedQuiz && checkedQuiz.length > 0 && (
+                            {checkedQuiz && checkedQuiz.length > 0 && (
                                 <button
                                     className="btn btn-danger me-2 d-flex align-items-center"
                                     style={{ gap: '6px', fontSize: '14px' }}
@@ -61,7 +96,7 @@ const ManageQuiz = (props) => {
                                 >
                                     <TbTrashX fontSize={16} />
                                 </button>
-                            )} */}
+                            )}
                             <button
                                 className="btn btn-primary d-flex align-items-center"
                                 style={{ gap: '6px', fontSize: '14px' }}
@@ -75,6 +110,12 @@ const ManageQuiz = (props) => {
                     <Scrollbar style={{ height: 350 }}>
                         <QuizTable
                             quizList={quizList}
+                            isCheckAll={isCheckAll}
+                            handleCheckAllQuiz={handleCheckAllQuiz}
+                            handleCheckQuiz={handleCheckQuiz}
+                            checkedQuiz={checkedQuiz}
+                            handleShowModalUpdateQuiz={handleShowModalUpdateQuiz}
+                            handleShowModalDeleteQuiz={handleShowModalDeleteQuiz}
                         />
                     </Scrollbar>
                 </div>
@@ -82,6 +123,25 @@ const ManageQuiz = (props) => {
                 <ModalAddQuiz
                     show={showModalAddQuiz}
                     setShow={setShowModalAddQuiz}
+                    fetchQuizList={fetchQuizList}
+                />
+
+                <ModalUpdateQuiz
+                    show={showModalUpdateQuiz}
+                    setShow={setShowModalUpdateQuiz}
+                    quizUpdate={quiz}
+                    setQuizUpdate={setQuiz}
+                    fetchQuizList={fetchQuizList}
+                />
+
+                <ModalDeleteQuiz
+                    show={showModalDeleteQuiz}
+                    setShow={setShowModalDeleteQuiz}
+                    quizDelete={quiz}
+                    setQuizDelete={setQuiz}
+                    checkedQuiz={checkedQuiz}
+                    setCheckedQuiz={setCheckedQuiz}
+                    fetchQuizList={fetchQuizList}
                 />
             </div>
         </div>

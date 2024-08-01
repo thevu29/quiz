@@ -6,7 +6,7 @@ import { postAddQuiz } from '../../../../services/quizApiService'
 import { TiTimes } from 'react-icons/ti'
 
 const ModalAddQuiz = (props) => {
-    const { show, setShow, fetchPaginateUser, setCurrentPage } = props
+    const { show, setShow, fetchQuizList } = props
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
@@ -47,12 +47,10 @@ const ModalAddQuiz = (props) => {
             toast.error('Name is required')
             return
         }
-
         if (!description) {
             toast.error('Description is required')
             return
         }
-
         if (!quizImage) {
             toast.error('Image is required')
             return
@@ -63,6 +61,7 @@ const ModalAddQuiz = (props) => {
         if (res && res.EC === 0) {
             toast.success('Add quiz successfully')
             handleCloseModal()
+            await fetchQuizList()
         } else {
             toast.error(res.EM)
         }
@@ -123,14 +122,14 @@ const ModalAddQuiz = (props) => {
                         <div className="col-md-4 d-flex justify-content-center flex-column align-items-center">
                             <div className="img-preview">
                                 {previewImage
-                                    ? <img src={previewImage} alt="Preview" />
+                                    ? <>
+                                        <img src={previewImage} alt="Preview" />
+                                        <span className="remove-img-button" onClick={handleRemovePreviewImage}>
+                                            <TiTimes />
+                                        </span>
+                                    </>
                                     : <span>Preview Image</span>
                                 }
-                                {previewImage && (
-                                    <span className="remove-img-button" onClick={handleRemovePreviewImage}>
-                                        <TiTimes />
-                                    </span>
-                                )}
                             </div>
                             <div className="">
                                 <label className="btn btn-outline-dark btn-upload" htmlFor="upload-image">

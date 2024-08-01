@@ -62,7 +62,7 @@ const ManageUser = (props) => {
         setUser(user)
     }
 
-    const handleCheckAllUser = e => {
+    const handleCheckAllUser = () => {
         setIsCheckAll(!isCheckAll)
         setCheckedUser(userList
             .filter(user => user.id !== 1 && user.id !== 2)

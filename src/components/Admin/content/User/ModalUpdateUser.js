@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { toast } from 'react-toastify'
 import { putUpdateUser } from '../../../../services/userApiService'
+import { TiTimes } from 'react-icons/ti'
 import defaultImage from '../../../../assets/images/default_image.jpg'
 
 const ModalUpdateUser = (props) => {
@@ -41,7 +42,7 @@ const ModalUpdateUser = (props) => {
             setRole(userUpdate.role)
             userUpdate.image
                 ? setPreviewImage(`data:image/jpeg;base64,${userUpdate.image}`)
-                : setPreviewImage(defaultImage)
+                : setPreviewImage(null)
         }
     }, [userUpdate])
 
@@ -57,6 +58,11 @@ const ModalUpdateUser = (props) => {
             setPreviewImage(URL.createObjectURL(e.target.files[0]))
             setUserImage(e.target.files[0])
         }
+    }
+
+    const handleRemovePreviewImage = () => {
+        setPreviewImage(null)
+        setUserImage('')
     }
 
     const handleUpdateUser = async () => {
@@ -138,8 +144,13 @@ const ModalUpdateUser = (props) => {
                         <div className="col-md-4 d-flex justify-content-center flex-column align-items-center">
                             <div className="img-preview">
                                 {previewImage
-                                    ? <img src={previewImage} alt="Preview" />
-                                    : <span>Preview Image</span>
+                                    ? <>
+                                        <img src={previewImage} alt="Preview" />
+                                        <span className="remove-img-button" onClick={handleRemovePreviewImage}>
+                                            <TiTimes />
+                                        </span>
+                                    </>
+                                    : <img src={defaultImage} alt="Preview" />
                                 }
                             </div>
                             <div className="">
