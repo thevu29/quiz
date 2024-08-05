@@ -39,6 +39,14 @@ const deleteQuiz = id => {
     return axios.delete(`api/v1/quiz/${id}`)
 }
 
+const postAssignQuiz = (quizId, userId) => {
+    return axios.post('api/v1/quiz-assign-to-user', { quizId, userId })
+}
+
+const postUpsertQA = payload => {
+    return axios.post('api/v1/quiz-upsert-qa', { ...payload })
+}
+
 export {
     getQuizByUser,
     getQuizDetailById,
@@ -46,5 +54,7 @@ export {
     postAddQuiz,
     getAllQuizzes,
     putUpdateQuiz,
-    deleteQuiz
+    deleteQuiz,
+    postAssignQuiz,
+    postUpsertQA
 }

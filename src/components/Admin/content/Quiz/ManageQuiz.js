@@ -5,16 +5,19 @@ import { FiFilter } from 'react-icons/fi'
 import { TbTrashX } from 'react-icons/tb'
 import { useEffect, useState } from 'react'
 import { getAllQuizzes } from '../../../../services/quizApiService'
+import { Scrollbar } from 'react-scrollbars-custom'
+import { MdOutlineAssignment } from 'react-icons/md'
 import ModalAddQuiz from './ModalAddQuiz'
 import QuizTable from './QuizTable'
-import { Scrollbar } from 'react-scrollbars-custom'
 import ModalUpdateQuiz from './ModalUpdateQuiz'
 import ModalDeleteQuiz from './ModalDeleteQuiz'
+import ModalAssignUser from './ModalAssignUser'
 
 const ManageQuiz = (props) => {
     const [showModalAddQuiz, setShowModalAddQuiz] = useState(false)
     const [showModalUpdateQuiz, setShowModalUpdateQuiz] = useState(false)
     const [showModalDeleteQuiz, setShowModalDeleteQuiz] = useState(false)
+    const [showModalAssignUser, setShowModalAssignUser] = useState(false)
 
     const [quiz, setQuiz] = useState({})
     const [quizList, setQuizList] = useState([])
@@ -98,6 +101,14 @@ const ManageQuiz = (props) => {
                                 </button>
                             )}
                             <button
+                                className="btn btn-warning d-flex align-items-center me-3"
+                                style={{ gap: '6px', fontSize: '14px' }}
+                                onClick={() => setShowModalAssignUser(true)}
+                            >
+                                <MdOutlineAssignment fontSize={16} />
+                                Assign To User
+                            </button>
+                            <button
                                 className="btn btn-primary d-flex align-items-center"
                                 style={{ gap: '6px', fontSize: '14px' }}
                                 onClick={() => setShowModalAddQuiz(true)}
@@ -142,6 +153,12 @@ const ManageQuiz = (props) => {
                     checkedQuiz={checkedQuiz}
                     setCheckedQuiz={setCheckedQuiz}
                     fetchQuizList={fetchQuizList}
+                />
+
+                <ModalAssignUser 
+                    show={showModalAssignUser}
+                    setShow={setShowModalAssignUser}
+                    quizzes={quizList}
                 />
             </div>
         </div>

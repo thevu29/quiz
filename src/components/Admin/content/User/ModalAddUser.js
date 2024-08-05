@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { isValidEmail } from '../../../../validation/Validate'
 import { postAddUser } from '../../../../services/userApiService'
@@ -142,7 +142,7 @@ const ModalAddUser = (props) => {
                                     : <span>Preview Image</span>
                                 }
                             </div>
-                            <div className="">
+                            <div>
                                 <label className="btn btn-outline-dark btn-upload" htmlFor="upload-image">
                                     Choose Image
                                 </label>

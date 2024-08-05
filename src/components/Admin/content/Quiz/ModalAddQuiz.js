@@ -131,7 +131,7 @@ const ModalAddQuiz = (props) => {
                                     : <span>Preview Image</span>
                                 }
                             </div>
-                            <div className="">
+                            <div>
                                 <label className="btn btn-outline-dark btn-upload" htmlFor="upload-image">
                                     Choose Image
                                 </label>

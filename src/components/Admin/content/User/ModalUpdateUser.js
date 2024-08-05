@@ -153,7 +153,7 @@ const ModalUpdateUser = (props) => {
                                     : <img src={defaultImage} alt="Preview" />
                                 }
                             </div>
-                            <div className="">
+                            <div>
                                 <label className="btn btn-outline-dark btn-upload" htmlFor="upload-image">
                                     Choose Image
                                 </label>
