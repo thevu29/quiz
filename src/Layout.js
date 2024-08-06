@@ -15,6 +15,7 @@ import Dashboard from './components/Admin/content/Dashboard/Dashboard'
 import ManageUser from './components/Admin/content/User/ManageUser'
 import ManageQuiz from './components/Admin/content/Quiz/ManageQuiz'
 import ManageQuestion from './components/Admin/content/Question/ManageQuestion'
+import PrivateRoute from './routes/PrivateRoute'
 
 const Layout = () => {
     return (
@@ -24,11 +25,22 @@ const Layout = () => {
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
-                    <Route path="quiz" element={<QuizList />} />
+                    <Route path="quiz" element={
+                        <PrivateRoute>
+                            <QuizList />
+                        </PrivateRoute>
+                    } />
                     <Route path="/quiz/:id" element={<QuizDetail />} />
                 </Route>
 
-                <Route path="/admin" element={<Admin />}>
+                <Route
+                    path="/admin"
+                    element={
+                        <PrivateRoute>
+                            <Admin />
+                        </PrivateRoute>
+                    }
+                >
                     <Route index element={<Dashboard />} />
                     <Route path="manage-user" element={<ManageUser />} />
                     <Route path="manage-quiz" element={<ManageQuiz />} />

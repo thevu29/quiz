@@ -37,7 +37,7 @@ const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <NavLink to="/" className="nav-link">Home</NavLink>
-                        {isAuthenticated && <NavLink to="/quiz" className="nav-link">Quiz</NavLink>}
+                        <NavLink to="/quiz" className="nav-link">Quiz</NavLink>
                     </Nav>
                     <Nav>
                         {!isAuthenticated
