@@ -14,7 +14,7 @@ const QuizModal = (props) => {
 
     let score = 0
     if (results) {
-        score = +results.countCorrect / +results.countTotal * 10
+        score = Math.round(+results.countCorrect / +results.countTotal * 10)
     }
 
     const handleClose = () => setShowQuizModal(false)

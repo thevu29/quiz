@@ -160,6 +160,20 @@
                     }
                 }
 
+                &.error {
+                    span {
+                        background-color: #ff0000;
+                        color: #fff;
+                    }
+                }
+
+                &.correct {
+                    span {
+                        background-color: #12ff00;
+                        color: #fff;
+                    }
+                }
+
                 &.selected {
                     span {
                         background-color: #0d6efd;

@@ -43,11 +43,17 @@ const Question = (props) => {
                             }
                         }
 
+                        const className = [
+                            'quiz-detail-answer-item',
+                            isAnswerSelected,
+                            resultClass
+                        ].filter(Boolean).join(' ')
+
                         return (
                             <label
                                 key={`answer-${index}`}
                                 htmlFor={answer?.id}
-                                className={`quiz-detail-answer-item ${isAnswerSelected} ${resultClass}`}
+                                className={className}
                             >
                                 <span>{String.fromCharCode(65 + index)}</span>
                                 <span>{answer?.answer}</span>

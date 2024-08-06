@@ -1,12 +1,13 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import { getQuizDetailById, postSubmitQuiz } from '../../services/quizApiService'
+import { FaCheckCircle } from 'react-icons/fa'
+import { MdRefresh } from 'react-icons/md'
 import _ from 'lodash'
 import './QuizDetail.scss'
 import Question from './Question'
 import ModalResult from './QuizModal'
-import { FaCheckCircle } from 'react-icons/fa'
-import { MdRefresh } from 'react-icons/md'
+import CountDown from './CountDown'
 
 const QuizDetail = (props) => {
     const params = useParams()
@@ -20,6 +21,7 @@ const QuizDetail = (props) => {
     const [results, setResults] = useState(null)
     const [isShowResult, setIsShowResult] = useState(false)
     const [modalAction, setModalAction] = useState('')
+    const [isRedo, setIsRedo] = useState(false)
 
     useEffect(() => {
         document.title = 'Quiz'
@@ -68,7 +70,7 @@ const QuizDetail = (props) => {
         }
     }
 
-    const handleSubmiQuiz = async () => {
+    const handleSubmitQuiz = async () => {
         if (quizDetail && quizDetail.length > 0) {
             const payload = {
                 quizId: +quizId,
@@ -111,6 +113,7 @@ const QuizDetail = (props) => {
         setQuizIndex(0)
         setResults(null)
         setIsShowResult(false)
+        setIsRedo(true)
     }
 
     return (
@@ -153,7 +156,7 @@ const QuizDetail = (props) => {
                                     {!results && (
                                         <button
                                             className="btn btn-primary ms-3"
-                                            onClick={handleSubmiQuiz}
+                                            onClick={handleSubmitQuiz}
                                         >
                                             Submit
                                         </button>
@@ -176,12 +179,19 @@ const QuizDetail = (props) => {
                                         </>
                                     )
                                     : (
-                                        <div className="d-flex flex-column align-items-center" onClick={handleSubmiQuiz}>
+                                        <div className="d-flex flex-column align-items-center" onClick={handleSubmitQuiz}>
                                             <FaCheckCircle fontSize={20} />
                                             <span>Submit</span>
                                         </div>
                                     )
                                 }
+
+                                <CountDown
+                                    handleSubmitQuiz={handleSubmitQuiz}
+                                    results={results}
+                                    isRedo={isRedo}
+                                />
+
                                 <div className="d-flex flex-column align-items-center" onClick={handleShowRedoModal}>
                                     <MdRefresh fontSize={22} />
                                     <span>Redo</span>
@@ -189,13 +199,29 @@ const QuizDetail = (props) => {
                             </div>
                             <div className="list-body row">
                                 {quizDetail && quizDetail.length > 0 && quizDetail.map((item, index) => {
-                                    const isCurrentQuestion = index === quizIndex ? 'active' : ''
-                                    const isSelected = item.answers.find(answer => answer.isSelected) ? 'selected' : ''
+                                    let isCurrentQuestion = index === quizIndex ? 'active' : ''
+                                    let isSelected = item.answers.find(answer => answer.isSelected) ? 'selected' : ''
+                                    let correctClass = ''
+
+                                    if (isShowResult && results && results.quizData.length > 0) {
+                                        const { isCorrect } = results.quizData.find(data => data.questionId === +item.questionId)
+                                        correctClass = isCorrect ? 'correct' : 'error'
+                                        isCurrentQuestion = ''
+                                        isSelected = ''
+                                    }
+
+                                    const classNames = [
+                                        'list-item',
+                                        'col-2',
+                                        isCurrentQuestion,
+                                        isSelected,
+                                        correctClass
+                                    ].filter(Boolean).join(' ')
 
                                     return (
                                         <div
                                             key={`question-${index + 1}`}
-                                            className={`list-item col-2 ${isCurrentQuestion} ${isSelected}`}
+                                            className={classNames}
                                             onClick={() => setQuizIndex(index)}
                                         >
                                             <span>{index + 1}</span>
