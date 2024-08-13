@@ -72,6 +72,12 @@ const QuizDetail = (props) => {
 
     const handleSubmitQuiz = async () => {
         if (quizDetail && quizDetail.length > 0) {
+            const isAnsweredAll = quizDetail.every(item => item.answers.find(answer => answer.isSelected))
+            if (!isAnsweredAll) {
+                handleShowRequireAnswerAll()
+                return
+            }
+
             const payload = {
                 quizId: +quizId,
                 answers: quizDetail.map(item => (
@@ -92,6 +98,11 @@ const QuizDetail = (props) => {
                 setShowQuizModal(true)
             }
         }
+    }
+
+    const handleShowRequireAnswerAll = () => {
+        setModalAction('answer-all')
+        setShowQuizModal(true)
     }
 
     const handleResetQuiz = () => {

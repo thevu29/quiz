@@ -1,4 +1,5 @@
-@import "../../App.scss";
+$primary-color: #191919;
+$active-color: #3e3edb;
 
 @keyframes fadeIn {
     from {
@@ -14,6 +15,7 @@
 .header-container {
     font-family: "Apercu Pro", "Helvetica Neue", sans-serif;
     position: sticky;
+    position: -webkit-sticky;
     top: 0;
     z-index: 1001;
     color: $primary-color;

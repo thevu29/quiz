@@ -40,6 +40,8 @@ const QuizModal = (props) => {
                                     return 'Result'
                                 case 'redo':
                                     return 'Confirm redo'
+                                case 'answer-all':
+                                    return 'Answer all questions'
                                 default:
                                     return ''
                             }
@@ -68,6 +70,8 @@ const QuizModal = (props) => {
                                 )
                             case 'redo':
                                 return 'Are you sure you want to redo the quiz?'
+                            case 'answer-all':
+                                return 'Please answer all questions before submitting!'
                             default:
                                 return 'Action not found'
                         }
@@ -97,6 +101,12 @@ const QuizModal = (props) => {
                                             Show result
                                         </Button>
                                     </>
+                                )
+                            case 'answer-all':
+                                return (
+                                    <Button variant="secondary" onClick={handleClose}>
+                                        Close
+                                    </Button>
                                 )
                             default:
                                 return ''

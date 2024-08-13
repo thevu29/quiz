@@ -36,7 +36,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100%;
-  overflow: auto;
 }
 
 #root {
@@ -44,7 +43,9 @@ body {
 }
 
 .app-container {
-  overflow: hidden;
+  .content-container {
+    overflow: hidden;
+  }
 }
 
 .loading-icon {
@@ -54,9 +55,28 @@ body {
 
 @keyframes spin {
   from {
-      transform: scale(1) rotate(0deg);
+    transform: scale(1) rotate(0deg);
   }
   to {
-      transform: scale(1) rotate(360deg);
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+.breadcrumb-container {
+  position: absolute;
+  top: 10px;
+  left: 32px;
+  
+  .breadcrumb-item {
+    font-size: 14px;
+    cursor: context-menu;
+    
+    a {
+      text-decoration: none;
+    }
+
+    &.active {
+      color: #090d14;
+    }
   }
 }
