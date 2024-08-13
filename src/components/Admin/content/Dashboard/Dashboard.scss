@@ -1,0 +1,107 @@
+.border-right {
+    border-right: 1px solid #dde1ef;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #dde1ef;
+}
+
+.border-top {
+    border-top: 1px solid #dde1ef;
+}
+
+.border-left {
+    border-left: 1px solid #dde1ef;
+}
+
+.mt-0 {
+    margin: 0;
+}
+
+.pd-0 {
+    padding: 0;
+}
+
+.bf-white {
+    background-color: #fff;
+}
+
+.dashboard-container {
+    .dashboard-content {
+        margin-top: 24px;
+
+        .total-container {
+            background-color: #fff;
+            box-shadow: rgba(0, 0, 0, .06) 0px 2px 4px -1px;
+            border-radius: 0.25rem;
+            height: 100%;
+
+            .total-item {
+                padding: 1.2rem;
+                font-size: 14px;
+
+                .total-item-image {
+                    height: 3rem;
+                    width: 3rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+
+                    &.user {
+                        background-color: #e1e7fc;
+                        color: #3762ea;
+                    }
+
+                    &.quiz {
+                        background-color: #e9ebec;
+                        color: #0f1114;
+                    }
+
+                    &.question {
+                        background-color: #eef0f7;
+                        color: #0f1114;
+                    }
+
+                    &.answer {
+                        background-color: #e4f3f6;
+                        color: #4ab0c1;
+                    }
+                }
+
+                .total-item-title {
+                    font-size: 0.8125rem;
+                    color: #878a99;
+                    text-transform: uppercase;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                .total-item-value {
+                    font-weight: 600;
+                    font-size: calc(0.8125rem * 1.5);
+                }
+            }
+        }
+
+        .chart-container {
+            background-color: #fff;
+            padding: 1.2rem;
+            box-shadow: rgba(0, 0, 0, .06) 0px 2px 4px -1px;
+            border-radius: 0.25rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+            .chart-title {
+                font-size: 1rem;
+            }
+
+            .chart-content {
+                margin-top: 32px;
+                height: 100%;
+            }
+        }
+    }
+}

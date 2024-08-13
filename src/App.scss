@@ -22,88 +22,61 @@ $active-color: #3e3edb;
   font-style: normal;
 }
 
+html {
+  box-sizing: border-box;
+  height: 100%;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
 body {
   padding: 0;
   margin: 0;
   font-family: "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
 }
 
-.header {
-  font-weight: 600;
-  font-size: 24px;
+#root {
+  min-height: 100%;
 }
 
 .app-container {
-  .header-container {
-    position: sticky;
-    top: 0;
-    z-index: 1001;
-    color: $primary-color;
-    background-color: #ffffffe6;
-    backdrop-filter: saturate(180%) blur(20px);
-    transition:
-      height 600ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s,
-      box-shadow 600ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
-
-    .navbar-nav {
-      .nav-link {
-        color: $primary-color;
-
-        &.active {
-          color: $active-color;
-          font-weight: 600;
-        }
-      }
-    }
-
-    .navbar-brand {
-      color: $primary-color;
-      font-weight: 600;
-      font-size: 32px;
-    }
+  .content-container {
+    overflow: hidden;
   }
+}
 
-  .homepage-container {
-    font-family: "Apercu Pro", "Helvetica Neue", sans-serif;
-    padding: 40px 0;
+.loading-icon {
+  margin-right: 6px;
+  animation: spin 1s infinite linear;
+}
 
-    .homepage-content {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      text-align: left;
+@keyframes spin {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+  to {
+    transform: scale(1) rotate(360deg);
+  }
+}
 
-      h1 {
-        font-size: 60px;
-        letter-spacing: -0.02em;
-        line-height: 1.1;
-      }
+.breadcrumb-container {
+  position: absolute;
+  top: 10px;
+  left: 32px;
+  
+  .breadcrumb-item {
+    font-size: 14px;
+    cursor: context-menu;
+    
+    a {
+      text-decoration: none;
+    }
 
-      p {
-        margin-top: 32px;
-        font-size: 20px;
-        letter-spacing: -0.01em;
-        line-height: 1.2;
-        text-wrap: balance;
-      }
-
-      .btn {
-        margin-top: 40px;
-        padding: 12px 24px;
-        border-radius: 12px;
-        background-color: $primary-color;
-        border: 1px solid $primary-color;
-
-        &:hover {
-          color: var(--bs-btn-hover-color);
-          background-color: var(--bs-btn-hover-bg);
-          border-color: var(--bs-btn-hover-border-color);
-        }
-      }
+    &.active {
+      color: #090d14;
     }
   }
 }
