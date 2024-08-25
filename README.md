@@ -1,9 +1,7 @@
-# Quiz
-
-## Overview
+# Overview
 This is a frontend project focused on quiz management and allowing users to take quizzes using ReactJS. The project utilizes an API built by Hoi Dan IT
 
-## Setup Instructions for Running Locally
+# Setup Instructions for Running Locally
 
 ### Backend
 
